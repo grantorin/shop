@@ -10,7 +10,7 @@ $template = 'default';
 define('TemplatePrefix', "../views/$template/");
 define('TemplatePostfix', '.tpl');
 // path to template files in to web space (www)
-define('TemplateWebPath', "/template/$template/");
+define('TemplateWebPath', "/templates/$template/");
 // Smarty init
 require('../library/smarty/libs/Smarty.class.php');
 $smarty = new Smarty();
