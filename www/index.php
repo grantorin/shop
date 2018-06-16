@@ -10,7 +10,7 @@ $controllerName = isset($_GET['controller'])
 
 // определяем с каким екшеном работаем
 $actionName = isset($_GET['action'])
-    ? $_GET['action'] // first letter to Uppercase, other to lowercase
+    ? $_GET['action']
     : 'index';
 
-loadPage($controllerName, $actionName);
+loadPage($smarty, $controllerName, $actionName);
