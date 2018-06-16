@@ -1,0 +1,15 @@
+# Development environment
+.idea
+.vscode
+.sass-cache
+/node_modules/
+/bower_components/
+
+# Config files
+sftp-config.json
+package-lock.json
+*.sublime-project
+*.sublime-workspace
+
+# Projects
+
