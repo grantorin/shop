@@ -37,3 +37,23 @@ function d($value = null, $die = 1) {
 
     if($die) die;
 }
+
+/**
+ *  Create assoc array from query
+ *
+ * @param $rs
+ * @return array
+ */
+function createSmartyRsArray($rs) {
+
+	if(!$rs) return false;
+
+	$smartyRs = array();
+
+	/* extraction of an associative array from query */
+	while ($row = mysqli_fetch_assoc($rs)) {
+		$smartyRs[] = $row;
+	}
+
+	return $smartyRs;
+}
