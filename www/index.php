@@ -1,6 +1,7 @@
 <?
 
-include_once '../config/config.php'; // Initializing settings
+include_once '../config/config.php';         // Initializing settings
+include_once '../config/db.php';             // Initializing settings db
 include_once '../library/mainFunctions.php'; // Common Functions
 
 // определяем с каким контроллером работаем

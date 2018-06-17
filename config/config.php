@@ -1,6 +1,6 @@
 <?
 
-// Константы для обращения к контроллерам
+// Constants for controllers
 define('PathPrefix', '../controllers/');
 define('PathPostfix', 'Controller.php');
 

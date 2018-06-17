@@ -1,9 +1,13 @@
 <aside class="sidebar">
-    <ul class="list-group">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+
+    {if $rsCategories}
+
+        <ul class="list-group">
+            {foreach $rsCategories as $item}
+                <li class="list-group-item"><a href="">{$item['name']}</a></li>
+            {/foreach}
+        </ul>
+
+    {/if}
+
 </aside>
