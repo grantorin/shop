@@ -1,3 +1,8 @@
+            </div>
+            <!-- /.col-lg-8 -->
+        </div>
+        <!-- /.row -->
+    </main>
 <footer class="footer"></footer>
 </div>
 

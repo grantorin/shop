@@ -15,7 +15,7 @@
 <div class="container">
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,3 +50,15 @@
             </div>
         </nav>
     </header>
+    <main class="main mt-5">
+        <div class="row">
+
+            {*Sidebar*}
+            <div class="col-lg-4">
+                {include file='sidebar-left.tpl'}
+            </div>
+
+            {*Main Content*}
+            <div class="col-lg-8">
+
+                <h1>{$pageTitle}</h1>

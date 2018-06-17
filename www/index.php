@@ -1,4 +1,5 @@
 <?
+error_reporting(E_ALL & ~E_NOTICE);
 
 include_once '../config/config.php';         // Initializing settings
 include_once '../config/db.php';             // Initializing settings db
