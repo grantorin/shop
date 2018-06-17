@@ -11,9 +11,9 @@
  */
 function getChildrenForCat($catID) {
 	global $db;
-	$sql = 'SELECT *
-            FROM categories
-            WHERE parent_id = ' . $catID;
+	$sql = "SELECT *
+            FROM `categories`
+            WHERE `parent_id` = {$catID}" ;
 
 	$rs = mysqli_query($db, $sql); // use query
 
@@ -28,9 +28,10 @@ function getChildrenForCat($catID) {
  */
 function getAllMainCatsWithChildren() {
 	global $db;
-	$sql = 'SELECT *
-            FROM categories
-            WHERE parent_id = 0';
+	$sql = "SELECT *
+            FROM `categories`
+            WHERE `parent_id` = 0";
+
     $rs = mysqli_query($db, $sql); // use query
 	if ($rs) {
 
