@@ -9,7 +9,7 @@
  * @param int $catID
  * @return array
  */
-function getChildrenForCat($catID = 1) {
+function getChildrenForCat($catID) {
 	global $db;
 	$sql = 'SELECT *
             FROM categories

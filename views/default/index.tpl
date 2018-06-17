@@ -1,6 +1,6 @@
 
     <main class="main">
-        <h1>Hello, world!</h1>
+        <h1>{$pageTitle}</h1>
         <div class="row">
             <div class="col-lg-4">
                 {include file='sidebar-left.tpl'}
