@@ -45,11 +45,19 @@ jQuery(function ($) {
 
                     $('#btnAddCart_' + prodID).show();
                     $('#removeCart_' + prodID).hide();
+                    $('#rowProduct_' + prodID).remove();
                 }
             }
         })
-    })
+    });
 
-
+    /**
+     * Calculate price item product
+     */
+    $('.js-conversionPrice').on('change', function () {
+        var sum = +$(this).val() || 1;
+        var price = +$(this).data('price');
+        $('#itemPrice_' + $(this).data('prodid')).html(sum * price);
+    });
 
 });

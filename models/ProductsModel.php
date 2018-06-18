@@ -7,7 +7,7 @@
 /**
  * Get last Products from table {products}
  *
- * @param null $limit
+ * @param null|int $limit
  * @return array
  */
 function getLastProducts($limit = null) {
@@ -29,7 +29,7 @@ function getLastProducts($limit = null) {
 /**
  * Get Products by category
  *
- * @param $itemId
+ * @param int $itemId
  * @return array
  */
 function getProductsByCat($itemId) {
@@ -49,7 +49,7 @@ function getProductsByCat($itemId) {
 /**
  * Get Product from DB by ID
  *
- * @param $itemId
+ * @param int $itemId
  * @return array
  */
 function getProductById($itemId) {
@@ -63,4 +63,24 @@ function getProductById($itemId) {
 	$rs = mysqli_query($db, $sql); // use query
 
 	return mysqli_fetch_assoc($rs);
+}
+
+
+/**
+ * Get Products from DB by IDs
+ *
+ * @param array $itemsIDs
+ * @return array
+ */
+function getProductsFromArray($itemsIDs) {
+	global $db;
+
+	$itemsIDs = implode($itemsIDs, ', ');
+	$sql = "SELECT *
+			FROM `products`
+			WHERE `id` IN ({$itemsIDs})";
+
+	$rs = mysqli_query($db, $sql); // use query
+
+	return createSmartyRsArray($rs);
 }
