@@ -21,6 +21,12 @@ function indexAction($smarty) {
 
 	$rsCategories = getAllMainCatsWithChildren();
 
+	$smarty->assign('itemInCart', 0);
+	// if this product in session array
+	if (in_array($itemID, $_SESSION['cart'])) {
+		$smarty->assign('itemInCart', 1);
+	}
+
 	$smarty->assign('pageTitle', '');
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
 	$smarty->assign('rsProduct', $rsProduct); // all one item product array

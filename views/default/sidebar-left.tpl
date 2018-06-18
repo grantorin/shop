@@ -19,4 +19,17 @@
 
     {/if}
 
+    <div class="jumbotron jumbotron-fluid p-3">
+        <a href="/cart/" title="Go to cart" class="btn btn-primary">
+            Cart
+            <span id="cartCntItems" class="badge badge-light ml-1">
+            {if $cartCntItems > 0}
+                {$cartCntItems}
+            {else}
+                0
+            {/if}
+        </span>
+        </a>
+    </div>
+
 </aside>
