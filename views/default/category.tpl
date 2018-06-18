@@ -7,7 +7,7 @@
                           <img class="card-img-top" src="/img/products/{$item['image']}" alt="Card image cap">
                           <div class="card-body">
                               <h5 class="card-title">{$item['name']}</h5>
-                              <a href="/product/{$item['id']}" class="btn btn-primary">Go product</a>
+                              <a href="/product/{$item['id']}/" class="btn btn-primary">Go product</a>
                           </div>
                       </div>
                       {if $smarty.foreach.products.iteration mod 3 == 0}

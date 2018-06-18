@@ -44,3 +44,23 @@ function getProductsByCat($itemId) {
 
 	return createSmartyRsArray($rs);
 }
+
+
+/**
+ * Get Product from DB by ID
+ *
+ * @param $itemId
+ * @return array
+ */
+function getProductById($itemId) {
+	global $db;
+
+	$itemId = intval($itemId); // to integer
+	$sql = "SELECT *
+			FROM `products`
+			WHERE `id` = '{$itemId}'";
+
+	$rs = mysqli_query($db, $sql); // use query
+
+	return mysqli_fetch_assoc($rs);
+}
