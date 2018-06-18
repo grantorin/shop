@@ -61,4 +61,4 @@
             {*Main Content*}
             <div class="col-lg-8">
 
-                <h1>{$pageTitle}</h1>
+                <h1 class="h2 mb-3" >{$pageTitle}</h1>
