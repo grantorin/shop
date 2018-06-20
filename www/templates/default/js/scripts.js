@@ -60,6 +60,11 @@ jQuery(function ($) {
         $('#itemPrice_' + $(this).data('prodid')).html(sum * price);
     });
 
+    /**
+     * Get data form
+     * @param obj_form
+     * @return object
+     */
     function getData(obj_form) {
         var hData = {};
         $('input, textarea, select', obj_form).each(function () {
@@ -88,7 +93,7 @@ jQuery(function ($) {
                    alert(data['message']); // TODO replace to modal deployment
 
                     $('#registerBox').hide();
-                    $('#userName').html(data['userName']);
+                    $('#userName').html(data['displayName']);
                     $('#userBox').show();
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
@@ -102,23 +107,34 @@ jQuery(function ($) {
         })
     });
 
-
     /**
-     * Logout User
+     * Auth User
      */
-    // $('#btnLogout').on('click', function() {
-    //     console.log('Logout'); // TODO remove to deployment
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/user/logout/',
-    //         success: function () {
-    //             window.location('/');
-    //         },
-    //         // TODO remove to deployment
-    //         error: function (jqXHR, textStatus, errorThrown) {
-    //             console.log(jqXHR, textStatus, errorThrown);
-    //         }
-    //     })
-    // })
+    $('#btnAuth').on('click', function() {
+        var postData = getData('#authBox');
+        console.log(postData);
+        $.ajax({
+            type: 'POST',
+            url: '/user/login/',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                console.log(data); // TODO remove to deployment
+                if (data['success']) {
+
+                    $('#authBox').hide();
+                    $('#userName').html(data['displayName']);
+                    $('#userBox').show();
+                } else {
+                    alert(data['message']); // TODO replace to modal deployment
+                }
+            },
+            // TODO remove to deployment
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                $('.main').after(jqXHR.responseText);
+            }
+        })
+    });
 
 });

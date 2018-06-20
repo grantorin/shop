@@ -41,7 +41,7 @@ function registerAction() {
 			$resData['message'] = __('User successfully registered');
 
 			$userData = $userData[0];
-			$resData['userName'] = $userData['name'] ? $userData['name'] : $userData['email'];
+			$resData['displayName'] = $userData['name'] ? $userData['name'] : $userData['email'];
 			$resData['userEmail'] = $email;
 
 			$_SESSION['user'] = $userData;
@@ -50,6 +50,50 @@ function registerAction() {
 			$resData['success'] = 0;
 			$resData['message'] = __('Registration error');
 		}
+	}
+
+	echo json_encode($resData);
+}
+
+
+
+/**
+ * Logout User from system
+ */
+function logoutAction() {
+	if (isset($_SESSION['user'])) {
+		unset($_SESSION['user']);
+		unset($_SESSION['cart']);
+	}
+
+	redirect('/');
+}
+
+
+/**
+ * AJAX login user
+ *
+ * @return json
+ */
+function loginAction() {
+	$email = isset($_REQUEST['email']) ? trim($_REQUEST['email']) : null;
+	$pwd   = isset($_REQUEST['pwd'])   ? trim($_REQUEST['pwd']) : null;
+
+	$userData = loginUser($email, $pwd);
+
+	if ($userData['success']) {
+		$userData = $userData[0];
+
+		$_SESSION['user'] = $userData;
+		$_SESSION['user']['displayName'] = $userData['name'] ? $userData['name'] : $userData['email'];
+
+		$resData = $_SESSION['user'];
+		$resData['success'] = 1;
+
+	} else {
+
+		$resData['success'] = 0;
+		$resData['message'] = __('Wrong login or password');
 	}
 
 	echo json_encode($resData);

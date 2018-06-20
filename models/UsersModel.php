@@ -96,13 +96,25 @@ function checkUserEmail($email) {
 
 
 /**
- * Logout User from system
+ * Login User
+ *
+ * @param string $email
+ * @param string $pwd
+ * @return array|bool
  */
-function logoutAction() {
-	if (isset($_SESSION['user'])) {
-		unset($_SESSION['user']);
-		unset($_SESSION['cart']);
-	}
+function loginUser ($email, $pwd) {
+	global $db;
+	$email = htmlspecialchars(mysqli_real_escape_string ($db, $email));
+	$pwd   = md5($pwd);
 
-	redirect('/');
+	$sql = "SELECT *
+			FROM `users`
+			WHERE (`email` = '{$email}' AND `pwd` = '{$pwd}')
+			LIMIT 1";
+
+	$rs = mysqli_query($db, $sql); // use query
+	$rs = createSmartyRsArray($rs);
+	$rs['success'] = (isset($rs[0])) ? 1 : 0;
+
+	return $rs;
 }
