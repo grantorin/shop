@@ -137,4 +137,33 @@ jQuery(function ($) {
         })
     });
 
+    /**
+     * Update User data
+     */
+    $('#btnUpdate').on('click', function() {
+        var postData = getData('#userData');
+        console.log(postData);
+        $.ajax({
+            type: 'POST',
+            url: '/user/update/',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                console.log(data); // TODO remove to deployment
+                if (data['success']) {
+                    alert(data['message']); // TODO replace to modal deployment
+                    $('#userName').html(data['displayName']);
+                    location.reload();
+                } else {
+                    alert(data['message']); // TODO replace to modal deployment
+                }
+            },
+            // TODO remove to deployment
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                $('.main').after(jqXHR.responseText);
+            }
+        })
+    });
+
 });

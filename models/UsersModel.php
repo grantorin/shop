@@ -118,3 +118,44 @@ function loginUser ($email, $pwd) {
 
 	return $rs;
 }
+
+
+/**
+ * Update User Data
+ *
+ * @param string $name
+ * @param string $phone
+ * @param string $address
+ * @param string $pwd1
+ * @param string $pwd2
+ * @param string $curPwdMD5
+ * @return boolean
+ */
+function updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
+	global $db;
+	$email   = htmlspecialchars(mysqli_real_escape_string ($db, $_SESSION['user']['email']));
+	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
+	$phone   = htmlspecialchars(mysqli_real_escape_string ($db, $phone));
+	$address = htmlspecialchars(mysqli_real_escape_string ($db, $address));
+	$pwd1    = trim($pwd1);
+	$pwd2    = trim($pwd2);
+
+	$newPwd = null;
+	if ($pwd1 && ($pwd1 == $pwd2)) $newPwd = md5($pwd1);
+
+	$sql = "UPDATE `users`
+			SET ";
+	if ($newPwd) {
+		$sql .= "`pwd` = '{$newPwd}', ";
+	}
+	$sql .= "`name` = '{$name}',
+			 `phone` = '{$phone}',
+			 `adress` = '{$address}'
+			 WHERE
+			  `email` = '{$email}' AND `pwd` = '{$curPwdMD5}'
+			LIMIT 1";
+
+	$rs = mysqli_query($db, $sql); // use query
+//	var_dump($rs); exit;
+	return $rs;
+}

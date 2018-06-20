@@ -98,3 +98,75 @@ function loginAction() {
 
 	echo json_encode($resData);
 }
+
+
+
+/**
+ * Load User Page
+ *
+ * @param object $smarty
+ */
+function indexAction($smarty) {
+
+	if(!isset($_SESSION['user'])) redirect('/');
+
+	$rsCategories = getAllMainCatsWithChildren();
+
+	$smarty->assign('pageTitle', __('User page'));
+	$smarty->assign('rsCategories', $rsCategories); // all categories array
+
+	loadTemplate($smarty, 'header');
+	loadTemplate($smarty, 'user');
+	loadTemplate($smarty, 'footer');
+}
+
+
+/**
+ * User Data Update
+ *
+ * @return string JSON
+ */
+function updateAction() {
+
+	if(!isset($_SESSION['user'])) redirect('/');
+
+	$resData = array();
+	$phone   = isset($_REQUEST['phone'])   ? trim($_REQUEST['phone'])   : null;
+	$address = isset($_REQUEST['address']) ? trim($_REQUEST['address']) : null;
+	$name    = isset($_REQUEST['name'])    ? trim($_REQUEST['name'])    : null;
+	$pwd1    = isset($_REQUEST['pwd1'])    ? trim($_REQUEST['pwd1'])    : null;
+	$pwd2    = isset($_REQUEST['pwd2'])    ? trim($_REQUEST['pwd2'])    : null;
+	$curPwd  = isset($_REQUEST['curPwd'])  ? trim($_REQUEST['curPwd'])  : null;
+
+	$curPwdMD5 = md5($curPwd);
+	if (!$curPwd || ($_SESSION['user']['pwd'] != $curPwdMD5)) {
+		$resData['success'] = 0;
+		$resData['message'] = 'Current password error';
+		echo json_encode($resData);
+		return false;
+	}
+
+	//	User update
+	$res = updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5);
+	if ($res) {
+		$resData['success']  = 1;
+		$resData['message']  = 'Data update';
+		$resData['userName'] = $name;
+
+		$_SESSION['user']['name']        = $name;
+		$_SESSION['user']['phone']       = $phone;
+		$_SESSION['user']['adress']      = $address;
+
+		$newPwd = $_SESSION['user']['pwd'];
+		if ($pwd1 && ($pwd1 == $pwd2)) $newPwd = md5(trim($pwd1));
+
+		$_SESSION['user']['pwd']         = $newPwd;
+		$_SESSION['user']['displayName'] = $name ? $name : $_SESSION['user']['email'];
+
+	} else {
+
+		$resData['success'] = 0;
+		$resData['message'] = 'Error Update Action';
+	}
+	echo json_encode($resData);
+}
