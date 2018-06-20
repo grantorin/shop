@@ -93,3 +93,16 @@ function checkUserEmail($email) {
 
 	return $rs;
 }
+
+
+/**
+ * Logout User from system
+ */
+function logoutAction() {
+	if (isset($_SESSION['user'])) {
+		unset($_SESSION['user']);
+		unset($_SESSION['cart']);
+	}
+
+	redirect('/');
+}

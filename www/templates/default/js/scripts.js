@@ -85,12 +85,13 @@ jQuery(function ($) {
             success: function (data) {
                 console.log(data); // TODO remove to deployment
                 if (data['success']) {
-                   alert(data['message']);
+                   alert(data['message']); // TODO replace to modal deployment
 
                     $('#registerBox').hide();
-                    // $('#personalBox').show();
+                    $('#userName').html(data['userName']);
+                    $('#userBox').show();
                 } else {
-                    alert(data['message']);
+                    alert(data['message']); // TODO replace to modal deployment
                 }
             },
             // TODO remove to deployment
@@ -99,6 +100,25 @@ jQuery(function ($) {
                 $('.main').after(jqXHR.responseText);
             }
         })
-    })
+    });
+
+
+    /**
+     * Logout User
+     */
+    // $('#btnLogout').on('click', function() {
+    //     console.log('Logout'); // TODO remove to deployment
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/user/logout/',
+    //         success: function () {
+    //             window.location('/');
+    //         },
+    //         // TODO remove to deployment
+    //         error: function (jqXHR, textStatus, errorThrown) {
+    //             console.log(jqXHR, textStatus, errorThrown);
+    //         }
+    //     })
+    // })
 
 });

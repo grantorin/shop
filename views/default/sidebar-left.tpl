@@ -20,9 +20,9 @@
     {/if}
 
     <!-- User login -->
-    <div id="personalBox" class="border p-3 my-3" style="display: none;">
-        <h6>Привет <span class="badge badge-primary">Primary</span></h6>
-        <button type="submit" class="btn btn-primary mb-2">Logout</button>
+    <div id="userBox" class="border p-3 my-3" style="display: none;">
+        <h6>Привет <a id="userNameLink" href="/user/"><span id="userName" class="badge badge-primary"></span></a></h6>
+        <a href="/user/logout/" class="btn btn-primary mb-2">Logout</a>
     </div>
 
     <!-- User auth -->

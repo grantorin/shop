@@ -42,7 +42,7 @@ function d($value = null, $die = 1) {
 /**
  *  Create assoc array from query
  *
- * @param $rs
+ * @param array $rs
  * @return array
  */
 function createSmartyRsArray($rs) {
@@ -63,9 +63,20 @@ function createSmartyRsArray($rs) {
 /**
  * Localization of the phrase
  *
- * @param $str
+ * @param string $str
  * @return string
  */
 function __($str) {
 	return $str;
+}
+
+
+/**
+ * Redirect to url
+ *
+ * @param string $url
+ */
+function redirect($url= '/') {
+	header("Location: $url");
+	exit;
 }
