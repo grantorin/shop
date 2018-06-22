@@ -16,14 +16,17 @@
                       </div>
                   {/foreach}
               </div>
+        {elseif $rsChildCats}
+
+            {*this loop working on parent category*}
+            {foreach $rsChildCats as $item name=childCats}
+                <h2 class="h4"><a href="/category/{$item['id']}/">{$item['name']}</a></h2>
+            {/foreach}
+
         {else}
-              <div class="alert alert-secondary" role="alert">
-                  No products
-              </div>
+
+            <div class="alert alert-secondary" role="alert">
+                No products
+            </div>
+
         {/if}
-
-
-        {*this loop working on parent category*}
-        {foreach $rsChildCats as $item name=childCats}
-            <h2 class="h4"><a href="/category/{$item['id']}/">{$item['name']}</a></h2>
-        {/foreach}

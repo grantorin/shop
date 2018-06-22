@@ -22,7 +22,7 @@ function registerNewUser($email, $pwdMD5, $name, $phone, $address) {
 	$address = htmlspecialchars(mysqli_real_escape_string ($db, $address));
 
 	$sql = "INSERT INTO
-			`users` (`email`, `pwd`, `name`, `phone`, `adress`)
+			`users` (`email`, `pwd`, `name`, `phone`, `address`)
 			VALUES ('{$email}', '{$pwdMD5}', '{$name}', '{$phone}', '{$address}')";
 
 	$rs = mysqli_query($db, $sql); // use query
@@ -150,7 +150,7 @@ function updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
 	}
 	$sql .= "`name` = '{$name}',
 			 `phone` = '{$phone}',
-			 `adress` = '{$address}'
+			 `address` = '{$address}'
 			 WHERE
 			  `email` = '{$email}' AND `pwd` = '{$curPwdMD5}'
 			LIMIT 1";

@@ -81,7 +81,6 @@ jQuery(function ($) {
      */
     $('#btnRegisterNewUser').on('click', function() {
         var postData = getData('#registerBox');
-
         $.ajax({
             type: 'POST',
             url: '/user/register/',
@@ -92,7 +91,7 @@ jQuery(function ($) {
                 if (data['success']) {
                    alert(data['message']); // TODO replace to modal deployment
 
-                    $('#registerBox').hide();
+                    $('#registerBox, #authBox').hide();
                     $('#userName').html(data['displayName']);
                     $('#userBox').show();
                 } else {
@@ -124,7 +123,11 @@ jQuery(function ($) {
 
                     $('#authBox').hide();
                     $('#userName').html(data['displayName']);
-                    $('#userBox').show();
+                    $('#userBox, #userData, #shippingBoxOrder, .btnOrderBox').show();
+
+                    $('[name=name]').val(data['name']);
+                    $('[name=phone]').val(data['phone']);
+                    $('[name=address]').val(data['address']);
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }

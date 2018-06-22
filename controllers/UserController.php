@@ -9,9 +9,9 @@ include_once '../models/UsersModel.php';
 
 
 /**
- * AJAX register users
+ * Register users from AJAX
  *
- * @return json
+ * @return string JSON
  */
 function registerAction() {
 	$email = isset($_REQUEST['email']) ? trim($_REQUEST['email']) : null;
@@ -71,9 +71,9 @@ function logoutAction() {
 
 
 /**
- * AJAX login user
+ * Login user from AJAX
  *
- * @return json
+ * @return string JSON
  */
 function loginAction() {
 	$email = isset($_REQUEST['email']) ? trim($_REQUEST['email']) : null;
@@ -112,6 +112,11 @@ function indexAction($smarty) {
 
 	$rsCategories = getAllMainCatsWithChildren();
 
+	$helpers = array(
+		'isShippingRequired' => 0
+	);
+
+	$smarty->assign('helpers', $helpers);
 	$smarty->assign('pageTitle', __('User page'));
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
 
@@ -122,7 +127,7 @@ function indexAction($smarty) {
 
 
 /**
- * User Data Update
+ * User Data Update from AJAX
  *
  * @return string JSON
  */
@@ -155,7 +160,7 @@ function updateAction() {
 
 		$_SESSION['user']['name']        = $name;
 		$_SESSION['user']['phone']       = $phone;
-		$_SESSION['user']['adress']      = $address;
+		$_SESSION['user']['address']      = $address;
 
 		$newPwd = $_SESSION['user']['pwd'];
 		if ($pwd1 && ($pwd1 == $pwd2)) $newPwd = md5(trim($pwd1));
