@@ -5,6 +5,8 @@
 
 include_once '../models/CategoriesModel.php';
 include_once '../models/ProductsModel.php';
+include_once '../models/OrdersModel.php';
+include_once '../models/PurchaseModel.php';
 
 
 /**
@@ -139,4 +141,30 @@ function orderAction($smarty) {
 	loadTemplate($smarty, 'header');
 	loadTemplate($smarty, 'order');
 	loadTemplate($smarty, 'footer');
+}
+
+
+/**
+ * Save Order from AJAX
+ *
+ * @return string JSON
+ */
+function saveorderAction () {
+
+	$cart = isset($_SESSION['saleCart']) ? $_SESSION['saleCart'] : null;
+
+	if (!$cart) {
+		$resData['success'] = 0;
+		$resData['message'] = __('Not Products or Sale');
+		echo json_encode($resData);
+		return;
+	}
+
+	$name    = isset($_POST['name'])    ? trim($_POST['name'])    : null;
+	$phone   = isset($_POST['phone'])   ? trim($_POST['phone'])   : null;
+	$address = isset($_POST['address']) ? trim($_POST['address']) : null;
+
+	$orderID = makeNewOrder($name, $phone, $address);
+
+
 }

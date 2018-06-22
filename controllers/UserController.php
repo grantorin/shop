@@ -154,13 +154,15 @@ function updateAction() {
 	//	User update
 	$res = updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5);
 	if ($res) {
-		$resData['success']  = 1;
-		$resData['message']  = 'Data update';
-		$resData['userName'] = $name;
+		$resData['success']     = 1;
+		$resData['message']     = 'Data update';
+		$resData['displayName'] = $name;
+		$resData['phone']       = $phone;
+		$resData['address']     = $address;
 
 		$_SESSION['user']['name']        = $name;
 		$_SESSION['user']['phone']       = $phone;
-		$_SESSION['user']['address']      = $address;
+		$_SESSION['user']['address']     = $address;
 
 		$newPwd = $_SESSION['user']['pwd'];
 		if ($pwd1 && ($pwd1 == $pwd2)) $newPwd = md5(trim($pwd1));

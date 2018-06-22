@@ -145,7 +145,7 @@ jQuery(function ($) {
      */
     $('#btnUpdate').on('click', function() {
         var postData = getData('#userData');
-        console.log(postData);
+        console.log(postData); // TODO remove to deployment
         $.ajax({
             type: 'POST',
             url: '/user/update/',
@@ -156,7 +156,10 @@ jQuery(function ($) {
                 if (data['success']) {
                     alert(data['message']); // TODO replace to modal deployment
                     $('#userName').html(data['displayName']);
-                    location.reload();
+
+                    $('[name=name]').val(data['displayName']);
+                    $('[name=phone]').val(data['phone']);
+                    $('[name=address]').val(data['address']);
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }
@@ -168,5 +171,33 @@ jQuery(function ($) {
             }
         })
     });
+
+    /**
+     * Order Checkout
+     */
+    $('#btnOrderCheckout').on('click', function () {
+        var postData = getData('#frmOrder');
+        console.log(postData); // TODO remove to deployment
+        $.ajax({
+            type: 'POST',
+            url: '/cart/saveorder/',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                console.log(data); // TODO remove to deployment
+                if (data['success']) {
+                    alert(data['message']); // TODO replace to modal deployment
+                    document.location = '/';
+                } else {
+                    alert(data['message']); // TODO replace to modal deployment
+                }
+            },
+            // TODO remove to deployment
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                $('.main').after(jqXHR.responseText);
+            }
+        })
+    })
 
 });

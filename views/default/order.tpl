@@ -5,7 +5,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Count</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Price</th>
                 <th scope="col">Cost</th>
             </tr>
@@ -14,7 +14,7 @@
         {foreach $rsProducts as $item name=products}
             <tr>
                 <th scope="row">{$smarty.foreach.products.iteration}</th>
-                <td><a href="/product/{$item['id']}" target="_blank">{$item['name']}</a></td>
+                <td><a href="/product/{$item['id']}/" target="_blank">{$item['name']}</a></td>
                 <td>
                     <div id="itemCnt_{$item['id']}" class="form-group">
                         <input type="hidden" name="itemCnt_{$item['id']}" class="form-control" value="{$item['cnt']}">
@@ -39,8 +39,7 @@
     </table>
 
     {if isset($arUser)}
-        {*<div id="userData" {if !isset($arUser)}style="display: none;"{/if}>*}
-        <div id="userData">
+        <div id="shippingBoxOrder">
 
             {include file="user-form-shipping.tpl"}
 
