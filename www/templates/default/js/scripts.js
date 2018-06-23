@@ -93,7 +93,7 @@ jQuery(function ($) {
 
                     $('#registerBox, #authBox').hide();
                     $('#userName').html(data['displayName']);
-                    $('#userBox').show();
+                    $('#userBox, .btnOrderBox').show();
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }

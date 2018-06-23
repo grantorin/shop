@@ -147,7 +147,7 @@ function orderAction($smarty) {
 /**
  * Save Order from AJAX
  *
- * @return string JSON
+ * @return string JSON|null
  */
 function saveorderAction () {
 
@@ -166,5 +166,25 @@ function saveorderAction () {
 
 	$orderID = makeNewOrder($name, $phone, $address);
 
+	if (!$orderID) {
+		$resData['success'] = 0;
+		$resData['message'] = __('Error create order');
+		echo json_encode($resData);
+		return;
+	}
 
+	$res = setPurcheseForOrder($orderID, $cart);
+
+	if ($res) {
+		$resData['success'] = 1;
+		$resData['message'] = __('Save Order');
+		unset($_SESSION['saleCart']);
+		unset($_SESSION['cart']);
+	} else {
+		$resData['success'] = 0;
+		$resData['message'] = __('Save Order Error, order #: ' . $orderID);
+
+	}
+
+	echo json_encode($resData);
 }
