@@ -33,3 +33,68 @@
         <button class="btn btn-primary" id="btnUpdate">Update</button>
     </div>
 </div>
+
+{*Orders table*}
+{if $rsUserOrders}
+    <h2>{$helpers['titleOrders']}</h2>
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Action</th>
+            <th scope="col"># order</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date create</th>
+            <th scope="col">Date payment</th>
+            <th scope="col">Info</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $rsUserOrders as $item name=orders}
+            <tr>
+                <th scope="row">{$smarty.foreach.orders.iteration}</th>
+                <td><a id="btnGetCurrentOrder" data-toggle="collapse" href="#collapse_{$smarty.foreach.orders.iteration}" role="button">details</a></td>
+                <td>{$item['id']}</td>
+                <td><small>{$helpers['status'][$item['status']]}</small></td>
+                <td><small>{$item['date_created']}</small></td>
+                <td><small>{$item['date_payment']}&nbsp;</small></td>
+                <td><small>{$item['comment']}</small></td>
+            </tr>
+            <tr>
+                <td class="p-0" colspan="7">
+                    {if $item['children']}
+                        <div class="collapse" id="collapse_{$smarty.foreach.orders.iteration}">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th scope="col">#</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach $item['children'] as $itemChild name=products}
+                                        <tr>
+                                            <th scope="row">{$smarty.foreach.products.iteration}</th>
+                                            <td>{$itemChild['product_id']}</td>
+                                            <td><a href="/product/{$itemChild['product_id']}/">{$itemChild['name']}</a></td>
+                                            <td>{$itemChild['price']}</td>
+                                            <td>{$itemChild['amount']}</td>
+                                        </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                        </div>
+                    {/if}
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+{else}
+    <div class="alert alert-secondary" role="alert">
+        {$helpers['titleOrders']}
+    </div>
+{/if}

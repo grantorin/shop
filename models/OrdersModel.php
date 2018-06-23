@@ -49,3 +49,31 @@ function makeNewOrder($name, $phone, $address) {
 		return false;
 	}
 }
+
+
+/**
+ * Get orders with products by user
+ *
+ * @param integer $userID
+ * @return array
+ */
+function getOrdersWithProductsByUser($userID) {
+	global $db;
+	$userID = intval($userID);
+	$sql = "SELECT * FROM `orders`
+			WHERE `user_id` = '{$userID}'
+			ORDER BY `id` DESC";
+
+	$rs = mysqli_query($db, $sql);
+
+	$smartyRs = array();
+	while ($row = mysqli_fetch_assoc($rs)) {
+		$rsChildren = getPurcheseForOrder($row['id']);
+		if ($rsChildren) {
+			$row['children'] = $rsChildren;
+			$smartyRs[] = $row;
+		}
+	}
+
+	return $smartyRs;
+}

@@ -4,8 +4,10 @@
  */
 
 include_once '../models/CategoriesModel.php';
-//include_once '../models/OrdersModel.php';
 include_once '../models/UsersModel.php';
+include_once '../models/OrdersModel.php';
+include_once '../models/PurchaseModel.php';
+
 
 
 /**
@@ -112,13 +114,25 @@ function indexAction($smarty) {
 
 	$rsCategories = getAllMainCatsWithChildren();
 
+	$rsUserOrders = getCurUserOrders();
+
 	$helpers = array(
-		'isShippingRequired' => 0
+		'isShippingRequired' => 0,
+		'titleOrders' => __('Orders'),
+		'status' => array(
+			0 => __('No Payment'),
+			1 => __('Payment')
+		)
 	);
+
+	if (!$rsUserOrders) {
+		$helpers['titleOrders'] = __('Not Orders');
+	}
 
 	$smarty->assign('helpers', $helpers);
 	$smarty->assign('pageTitle', __('User page'));
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
+	$smarty->assign('rsUserOrders', $rsUserOrders);
 
 	loadTemplate($smarty, 'header');
 	loadTemplate($smarty, 'user');

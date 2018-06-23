@@ -198,6 +198,13 @@ jQuery(function ($) {
                 $('.main').after(jqXHR.responseText);
             }
         })
+    });
+
+    /**
+     * Get current order in User page
+     */
+    $('#btnGetCurrentOrder').on('click', function() {
+
     })
 
 });

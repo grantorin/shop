@@ -28,3 +28,23 @@ function setPurcheseForOrder ($orderID, $cart) {
 
 	return $rs;
 }
+
+
+/**
+ * Get purchese for order
+ *
+ * @param integer $orderID
+ * @return array
+ */
+function getPurcheseForOrder($orderID) {
+	global $db;
+
+	$sql = "SELECT `pe`.*, `ps`.`name`
+			FROM `purchase` as `pe`
+			JOIN `products` as `ps` ON `pe`.`product_id` = `ps`.`id`
+			WHERE `pe`.`order_id` = {$orderID} ";
+
+	$rs = mysqli_query($db, $sql);
+
+	return createSmartyRsArray($rs);
+}
