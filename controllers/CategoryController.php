@@ -32,12 +32,12 @@ function indexAction($smarty) {
 	$rsCategories = getAllMainCatsWithChildren();
 
 	if(isset($rsChildCats)) {
-		$smarty->assign('pageTitle', __('Категория:') . ' ' . $rsCategory['name']);
+		$smarty->assign('titlePage', __('Категория:') . ' ' . $rsCategory['name']);
 		$smarty->assign('rsChildCats', $rsChildCats);
 	}
 
 	if (isset($rsProducts)) {
-		$smarty->assign('pageTitle', __('Товары категории') . ' ' . $rsCategory['name']);
+		$smarty->assign('titlePage', __('Товары категории') . ' ' . $rsCategory['name']);
 		$smarty->assign('rsProducts', $rsProducts);
 	}
 

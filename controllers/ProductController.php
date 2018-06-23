@@ -27,7 +27,7 @@ function indexAction($smarty) {
 		$smarty->assign('itemInCart', 1);
 	}
 
-	$smarty->assign('pageTitle', '');
+	$smarty->assign('titlePage', '');
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
 	$smarty->assign('rsProduct', $rsProduct); // all one item product array
 

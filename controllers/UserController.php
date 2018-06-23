@@ -130,7 +130,7 @@ function indexAction($smarty) {
 	}
 
 	$smarty->assign('helpers', $helpers);
-	$smarty->assign('pageTitle', __('User page'));
+	$smarty->assign('titlePage', __('User page'));
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
 	$smarty->assign('rsUserOrders', $rsUserOrders);
 

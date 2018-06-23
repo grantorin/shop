@@ -1,10 +1,13 @@
                         </div>
-                        <!-- /.col-lg-8 -->
+                        {* /.col-lg-8 *}
                     </div>
-                    <!-- /.row -->
+                    {* /.row *}
                 </main>
-            <footer class="footer"></footer>
+            <footer class="footer">
+
+            </footer>
             </div>
+            {*/.container*}
 
             {* Optional JavaScript *}
             {* jQuery first, then Popper.js, then Bootstrap JS *}

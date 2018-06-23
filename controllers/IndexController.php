@@ -16,7 +16,7 @@ function indexAction($smarty) {
     $rsCategories = getAllMainCatsWithChildren();
     $rsProducts = getLastProducts(16);
 
-    $smarty->assign('pageTitle', __('Главная страница сайта'));
+    $smarty->assign('titlePage', __('Главная страница сайта'));
     $smarty->assign('rsCategories', $rsCategories);
     $smarty->assign('rsProducts', $rsProducts);
 

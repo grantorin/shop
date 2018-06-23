@@ -66,7 +66,7 @@ function indexAction($smarty) {
 	$rsCategories = getAllMainCatsWithChildren();
 	$rsProducts = getProductsFromArray($itemsIDs);
 
-	$smarty->assign('pageTitle', __('Cart'));
+	$smarty->assign('titlePage', __('Cart'));
 	$smarty->assign('rsCategories', $rsCategories);
 	$smarty->assign('rsProducts', $rsProducts);
 
@@ -134,7 +134,7 @@ function orderAction($smarty) {
 	}
 
 	$smarty->assign('helpers', $helpers);
-	$smarty->assign('pageTitle', __('Order'));
+	$smarty->assign('titlePage', __('Order'));
 	$smarty->assign('rsCategories', $rsCategories);
 	$smarty->assign('rsProducts', $rsProducts);
 
