@@ -15,7 +15,7 @@
 <body>
 <div class="container-fluid">
     <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -47,15 +47,15 @@
             </div>
         </nav>
     </header>
-    <main class="main mt-5">
+    <main class="main">
         <div class="row">
 
             {*Sidebar*}
-            <div class="col-lg-4">
+            <div class="col-md-4 col-xl-3">
                 {include file='sidebar-left.tpl'}
             </div>
 
             {*Main Content*}
-            <div class="col-lg-8">
+            <div class="col-md-8 col-xl-9">
 
                 <h1 class="h2 mb-3" >{$titlePage}</h1>
