@@ -19,17 +19,17 @@ function indexAction($smarty) {
 
 	$rsProducts = null;
 	$rsChildCats = null;
-	$rsCategory = getCatById($catID);
+	$rsCategory = get_cat_id($catID);
 
 	// if Category lead show childrens categories
 	// else show products
 	if(intval($rsCategory['parent_id']) == 0) {
-		$rsChildCats = getChildrenForCat($catID);
+		$rsChildCats = get_cats_child($catID);
 	} else {
 		$rsProducts = getProductsByCat($catID);
 	}
 
-	$rsCategories = getAllMainCatsWithChildren();
+	$rsCategories = get_cats();
 
 	if(isset($rsChildCats)) {
 		$smarty->assign('titlePage', __('Категория:') . ' ' . $rsCategory['name']);

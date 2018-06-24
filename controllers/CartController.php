@@ -63,7 +63,7 @@ function removefromcartAction() {
 function indexAction($smarty) {
 	$itemsIDs = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
 
-	$rsCategories = getAllMainCatsWithChildren();
+	$rsCategories = get_cats();
 	$rsProducts = getProductsFromArray($itemsIDs);
 
 	$smarty->assign('titlePage', __('Cart'));
@@ -121,7 +121,7 @@ function orderAction($smarty) {
 
 	$_SESSION['saleCart'] = $rsProducts;
 
-	$rsCategories = getAllMainCatsWithChildren();
+	$rsCategories = get_cats();
 
 	$helpers = array(
 		'subtitle'      => __('Orders data'),

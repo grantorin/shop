@@ -47,4 +47,36 @@ jQuery(function ($) {
         })
     });
 
+    /**
+     * New Category Add
+     */
+    $('.btnUpdateCat').on('click', function() {
+        var thisID = $(this).data('item');
+        var postData = getData('#catBox_' + thisID);
+        postData.catID = thisID;
+        console.log(postData);  // TODO remove to deployment
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/updatecategory/',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                console.log(data); // TODO remove to deployment
+                if (data['success']) {
+                    alert(data['message']); // TODO replace to modal deployment
+
+                    location.reload();
+                } else {
+                    alert(data['message']); // TODO replace to modal deployment
+                }
+            },
+            // TODO remove to deployment
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                $('.main').after(jqXHR.responseText);
+            }
+        })
+    });
+
 });

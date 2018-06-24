@@ -9,7 +9,7 @@
  * @param int $catID
  * @return array
  */
-function getChildrenForCat($catID) {
+function get_cats_child($catID) {
 	global $db;
 	$sql = "SELECT *
             FROM `categories`
@@ -26,7 +26,7 @@ function getChildrenForCat($catID) {
  *
  * @return array
  */
-function getAllMainCatsWithChildren() {
+function get_cats() {
 	global $db;
 	$sql = "SELECT *
             FROM `categories`
@@ -40,7 +40,7 @@ function getAllMainCatsWithChildren() {
 		/* extraction of an associative array from query */
 		while ($row = mysqli_fetch_assoc($rs)) {
 
-			$rsChildren = getChildrenForCat($row['id']);
+			$rsChildren = get_cats_child($row['id']);
 			if($rsChildren) {
 				$row['children'] = $rsChildren;
 			}
@@ -56,16 +56,16 @@ function getAllMainCatsWithChildren() {
 /**
  * Get category by ID
  *
- * @param $catId
+ * @param $catID
  * @return array|null
  */
-function getCatById($catId) {
+function get_cat_id($catID) {
 	global $db;
 
-	$catId = intval($catId); // to integer
+	$catID = intval($catID); // to integer
 	$sql = "SELECT *
 			FROM `categories`
-			WHERE `id` = '{$catId}'";
+			WHERE `id` = '{$catID}'";
 
 	$rs = mysqli_query($db, $sql); // use query
 

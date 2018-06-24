@@ -19,7 +19,7 @@ function indexAction($smarty) {
 
 	$rsProduct = getProductById($itemID);
 
-	$rsCategories = getAllMainCatsWithChildren();
+	$rsCategories = get_cats();
 
 	$smarty->assign('itemInCart', 0);
 	// if this product in session array

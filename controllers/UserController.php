@@ -112,7 +112,7 @@ function indexAction($smarty) {
 
 	if(!isset($_SESSION['user'])) redirect('/');
 
-	$rsCategories = getAllMainCatsWithChildren();
+	$rsCategories = get_cats();
 
 	$rsUserOrders = getCurUserOrders();
 

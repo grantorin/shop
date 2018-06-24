@@ -22,9 +22,19 @@ $smarty->assign('templateWebPath', TemplateAdminWebPath);
  */
 function indexAction ($smarty) {
 
-	$rsCategories = getAllMainCategories();
+	$rsCategories = get_cats_primary();
 
-	$smarty->assign('titlePage', __('Admin'));
+	$helpers = array(
+		'activeMenu' => array(
+			'index' => 1,
+			'categories' => 0,
+			'products' => 0,
+			'orders' => 0
+		)
+	);
+
+	$smarty->assign('helpers', $helpers);
+	$smarty->assign('titlePage', __('Info'));
 	$smarty->assign('rsCategories', $rsCategories);
 
 	loadTemplate($smarty, 'header-admin');
@@ -41,7 +51,7 @@ function addnewcatAction () {
 	$catName     = $_POST['cat'];
 	$catParentID = $_POST['catParent'];
 
-	$res = insertCat($catName, $catParentID);
+	$res = set_cat($catName, $catParentID);
 
 	if ($res) {
 		$resData['success'] = 1;
@@ -49,6 +59,59 @@ function addnewcatAction () {
 	} else {
 		$resData['success'] = 0;
 		$resData['message'] = __('Category Add Error');
+	}
+
+	echo json_encode($resData);
+}
+
+
+/**
+ * Load Category Page Admin
+ *
+ * @param object $smarty
+ */
+function categoryAction ($smarty) {
+
+	$rsCategories = get_cats();
+	$rsCategoriesPrimary = get_cats_primary();
+
+	$helpers = array(
+		'activeMenu' => array(
+			'index' => 0,
+			'categories' => 1,
+			'products' => 0,
+			'orders' => 0
+		)
+	);
+
+	$smarty->assign('helpers', $helpers);
+	$smarty->assign('titlePage', __('Categories'));
+	$smarty->assign('rsCategories', $rsCategories);
+	$smarty->assign('rsCategoriesPrimary', $rsCategoriesPrimary);
+
+	loadTemplate($smarty, 'header-admin');
+	loadTemplate($smarty, 'category-admin');
+	loadTemplate($smarty, 'footer-admin');
+}
+
+
+/**
+ * Update category from AJAX
+ */
+function updatecategoryAction() {
+
+	$catID = intval($_POST['catID']);
+	$catParentID = intval($_POST['catParent']);
+	$catName = trim($_POST['cat']);
+
+	$res = update_cat($catID, $catParentID, $catName);
+
+	if ($res) {
+		$resData['success'] = 1;
+		$resData['message'] = __('Category Update');
+	} else {
+		$resData['success'] = 0;
+		$resData['message'] = __('Category Update Error');
 	}
 
 	echo json_encode($resData);

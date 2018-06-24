@@ -13,7 +13,7 @@ include_once '../models/ProductsModel.php';
  */
 function indexAction($smarty) {
 
-    $rsCategories = getAllMainCatsWithChildren();
+    $rsCategories = get_cats();
     $rsProducts = getLastProducts(16);
 
     $smarty->assign('titlePage', __('Главная страница сайта'));
