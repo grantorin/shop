@@ -7,7 +7,7 @@
                 <small id="emailHelp" class="form-text text-muted">Add new cat please</small>
             </div>
             <label class="my-1 mr-2" for="catParent">Parent Category</label>
-            <select class="custom-select" name="catParent" id="catParent">
+            <select class="custom-select mb-3" name="catParent" id="catParent">
                 <option value="0" selected>Primary Category</option>
                 {foreach $rsCategories as $item}
                     <option value="{$item['id']}">{$item['name']}</option>

@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    {*https://google.github.io/material-design-icons/#icon-font-for-the-web*}
+    {*https://material.io/tools/icons/?search=info&icon=shopping_cart&style=baseline*}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {* Bootstrap CSS *}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
@@ -58,4 +61,4 @@
             {*Main Content*}
             <div class="col-md-8 col-xl-9">
 
-                <h1 class="h2 mb-3" >{$titlePage}</h1>
+                <h1 class="h2 my-3" >{$titlePage}</h1>

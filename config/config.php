@@ -26,3 +26,6 @@ $smarty->setCompileDir('../tmp/smarty/cache');
 $smarty->setConfigDir('../library/smarty/configs');
 $smarty->assign('templateWebPath', TemplateWebPath);
 //<
+
+//File sizes
+define('FILEMAXSIZE', 4 * 1024 * 1024);
