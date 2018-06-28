@@ -17,7 +17,7 @@ function indexAction($smarty) {
 
 	if(!$itemID) exit('Not set product GET_parameter id!');
 
-	$rsProduct = getProductById($itemID);
+	$rsProduct = get_product_by_id($itemID);
 
 	$rsCategories = get_cats();
 

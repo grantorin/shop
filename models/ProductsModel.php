@@ -10,7 +10,7 @@
  * @param null|int $limit
  * @return array
  */
-function getLastProducts($limit = null) {
+function get_products_last($limit = null) {
 	global $db;
 	$sql = "SELECT *
             FROM `products`
@@ -29,16 +29,16 @@ function getLastProducts($limit = null) {
 /**
  * Get Products by category
  *
- * @param int $itemId
+ * @param int $catID
  * @return array
  */
-function getProductsByCat($itemId) {
+function get_products_by_cat($catID) {
 	global $db;
 
-	$itemId = intval($itemId); // to integer
+	$catID = intval($catID); // to integer
 	$sql = "SELECT *
 			FROM `products`
-			WHERE `category_id` = '{$itemId}'";
+			WHERE `category_id` = '{$catID}'";
 
 	$rs = mysqli_query($db, $sql); // use query
 
@@ -52,7 +52,7 @@ function getProductsByCat($itemId) {
  * @param int $itemId
  * @return array
  */
-function getProductById($itemId) {
+function get_product_by_id($itemId) {
 	global $db;
 
 	$itemId = intval($itemId); // to integer
@@ -72,7 +72,7 @@ function getProductById($itemId) {
  * @param array $itemsIDs
  * @return array
  */
-function getProductsFromArray($itemsIDs) {
+function get_products_from_array($itemsIDs) {
 	global $db;
 
 	$itemsIDs = implode($itemsIDs, ', ');

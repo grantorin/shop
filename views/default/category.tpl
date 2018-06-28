@@ -26,7 +26,7 @@
         {else}
 
             <div class="alert alert-secondary" role="alert">
-                No products
+                {$helpers['message']['empty-content']}
             </div>
 
         {/if}

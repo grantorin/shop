@@ -26,7 +26,7 @@ function indexAction($smarty) {
 	if(intval($rsCategory['parent_id']) == 0) {
 		$rsChildCats = get_cats_child($catID);
 	} else {
-		$rsProducts = getProductsByCat($catID);
+		$rsProducts = get_products_by_cat($catID);
 	}
 
 	$rsCategories = get_cats();
@@ -41,8 +41,14 @@ function indexAction($smarty) {
 		$smarty->assign('rsProducts', $rsProducts);
 	}
 
-	$smarty->assign('rsCategory', $rsCategory); // this category array
+	$helpers = array(
+		'message' 	 => array(
+			'empty-content'	 => __('No products')
+		)
+	);
 
+	$smarty->assign('helpers', $helpers);
+	$smarty->assign('rsCategory', $rsCategory); // this category array
 	$smarty->assign('rsCategories', $rsCategories); // all categories array
 
 	loadTemplate($smarty, 'header');

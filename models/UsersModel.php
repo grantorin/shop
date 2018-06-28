@@ -131,7 +131,7 @@ function loginUser ($email, $pwd) {
  * @param string $curPwdMD5
  * @return boolean
  */
-function updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
+function update_user ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
 	global $db;
 	$email   = htmlspecialchars(mysqli_real_escape_string ($db, $_SESSION['user']['email']));
 	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
@@ -169,7 +169,7 @@ function updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
 function getCurUserOrders () {
 
 	$userID = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
-	$rs = getOrdersWithProductsByUser($userID);
+	$rs = get_orders_user($userID);
 
 	return $rs;
 }

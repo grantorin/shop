@@ -6,8 +6,7 @@
 
 include_once '../models/admin/CategoriesModel.php';
 include_once '../models/admin/ProductsModel.php';
-include_once '../models/OrdersModel.php';
-include_once '../models/PurchaseModel.php';
+include_once '../models/admin/OrdersModel.php';
 
 
 // Set global path for admin
@@ -290,4 +289,68 @@ function optionsAction($smarty) {
 	loadTemplate($smarty, 'header-admin');
 	loadTemplate($smarty, 'options-admin');
 	loadTemplate($smarty, 'footer-admin');
+}
+
+
+/**
+ * Load Orders Page Admin
+ *
+ * @param object $smarty
+ */
+function ordersAction ($smarty) {
+
+	$rsCategories = get_cats();
+	$rsOrders = get_orders();
+
+	$helpers = array (
+		'activeMenu' => array(
+			'orders' => 1
+		),
+		'message' 			=> array(
+			'empty-content'	=> __('No products'),
+			'details-order'	=> __('Details')
+		),
+		'status' => array(
+			0	 => __('No Payment'),
+			1	 => __('Payment')
+		)
+	);
+
+	$smarty->assign('helpers', $helpers);
+	$smarty->assign('titlePage', __('Orders'));
+	$smarty->assign('rsCategories', $rsCategories);
+	$smarty->assign('rsOrders', $rsOrders);
+
+	loadTemplate($smarty, 'header-admin');
+	loadTemplate($smarty, 'orders-admin');
+	loadTemplate($smarty, 'footer-admin');
+}
+
+
+
+function setorderstatusAction () {
+
+	$itemID = $_POST['id'] ? intval($_POST['id']) : null;
+	$date = $_POST['date'] ? $_POST['date'] : null;
+
+	if (!($itemID && $date)) {
+		$resData['success'] = 0;
+		$resData['message'] = __('Error set date');
+
+		echo json_encode($resData);
+		return;
+	}
+
+	$res = update_order_status ($itemID, $date);
+
+	if ($res) {
+		$resData['success'] = 1;
+		$resData['message'] = __('Order Status Update');
+		$resData['date-payment'] = $date;
+	} else {
+		$resData['success'] = 0;
+		$resData['message'] = __('Error Order Status Update');
+	}
+
+	echo json_encode($resData);
 }

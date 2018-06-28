@@ -166,4 +166,36 @@ jQuery(function ($) {
         })
     });
 
+
+    /**
+     * Set Order status and date payment
+     */
+    $('.btnSetStatusDate').on('click', function() {
+        var orderBox = $('#date_' + $(this).data('id'));
+        var postData = getData('#date_' + $(this).data('id'));
+        console.log(postData);  // TODO remove to deployment
+        // return;
+        $.ajax({
+            type: 'POST',
+            url: '/admin/setorderstatus/',
+            dataType: 'json',
+            data: postData,
+            success: function (data) {
+                console.log(data); // TODO remove to deployment
+                if (data['success']) {
+                    alert(data['message']); // TODO replace to modal deployment
+                    $('.date-payment', orderBox).text(data['date-payment'] + ' 00:00:00');
+                } else {
+                    alert(data['message']); // TODO replace to modal deployment
+                }
+            },
+            // TODO remove to deployment
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                $('.main').after(jqXHR.responseText);
+            }
+        })
+    });
+
+
 });

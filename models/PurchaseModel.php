@@ -36,12 +36,12 @@ function setPurcheseForOrder ($orderID, $cart) {
  * @param integer $orderID
  * @return array
  */
-function getPurcheseForOrder($orderID) {
+function get_purchese_for_order($orderID) {
 	global $db;
 
 	$sql = "SELECT `pe`.*, `ps`.`name`
-			FROM `purchase` as `pe`
-			JOIN `products` as `ps` ON `pe`.`product_id` = `ps`.`id`
+			FROM `purchase` AS `pe`
+			JOIN `products` AS `ps` ON `pe`.`product_id` = `ps`.`id`
 			WHERE `pe`.`order_id` = {$orderID} ";
 
 	$rs = mysqli_query($db, $sql);

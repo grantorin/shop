@@ -64,7 +64,7 @@ function indexAction($smarty) {
 	$itemsIDs = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
 
 	$rsCategories = get_cats();
-	$rsProducts = getProductsFromArray($itemsIDs);
+	$rsProducts = get_products_from_array($itemsIDs);
 
 	$smarty->assign('titlePage', __('Cart'));
 	$smarty->assign('rsCategories', $rsCategories);
@@ -97,7 +97,7 @@ function orderAction($smarty) {
 		$itemsCnt[$item] = isset($_POST[$postVar]) ? $_POST[$postVar] : null;
 	}
 
-	$rsProducts = getProductsFromArray($itemsIDs);
+	$rsProducts = get_products_from_array($itemsIDs);
 
 	// add item product additional field
 	// realPrice = count product * price product
@@ -164,7 +164,7 @@ function saveorderAction () {
 	$phone   = isset($_POST['phone'])   ? trim($_POST['phone'])   : null;
 	$address = isset($_POST['address']) ? trim($_POST['address']) : null;
 
-	$orderID = makeNewOrder($name, $phone, $address);
+	$orderID = set_order($name, $phone, $address);
 
 	if (!$orderID) {
 		$resData['success'] = 0;

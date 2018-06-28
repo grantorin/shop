@@ -14,7 +14,7 @@ include_once '../models/ProductsModel.php';
 function indexAction($smarty) {
 
     $rsCategories = get_cats();
-    $rsProducts = getLastProducts(16);
+    $rsProducts = get_products_last(16);
 
     $smarty->assign('titlePage', __('Главная страница сайта'));
     $smarty->assign('rsCategories', $rsCategories);

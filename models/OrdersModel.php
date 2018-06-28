@@ -12,7 +12,7 @@
  * @param string $address
  * @return integer|bool
  */
-function makeNewOrder($name, $phone, $address) {
+function set_order ($name, $phone, $address) {
 	global $db;
 	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
 	$phone   = htmlspecialchars(mysqli_real_escape_string ($db, $phone));
@@ -57,7 +57,7 @@ function makeNewOrder($name, $phone, $address) {
  * @param integer $userID
  * @return array
  */
-function getOrdersWithProductsByUser($userID) {
+function get_orders_user($userID) {
 	global $db;
 	$userID = intval($userID);
 	$sql = "SELECT * FROM `orders`
@@ -68,7 +68,7 @@ function getOrdersWithProductsByUser($userID) {
 
 	$smartyRs = array();
 	while ($row = mysqli_fetch_assoc($rs)) {
-		$rsChildren = getPurcheseForOrder($row['id']);
+		$rsChildren = get_purchese_for_order($row['id']);
 		if ($rsChildren) {
 			$row['children'] = $rsChildren;
 			$smartyRs[] = $row;

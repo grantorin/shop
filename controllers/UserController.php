@@ -118,16 +118,14 @@ function indexAction($smarty) {
 
 	$helpers = array(
 		'isShippingRequired' => 0,
-		'titleOrders' => __('Orders'),
+		'message' 			=> array(
+			'empty-content'	=> __('No Orders'),
+		),
 		'status' => array(
 			0 => __('No Payment'),
 			1 => __('Payment')
 		)
 	);
-
-	if (!$rsUserOrders) {
-		$helpers['titleOrders'] = __('Not Orders');
-	}
 
 	$smarty->assign('helpers', $helpers);
 	$smarty->assign('titlePage', __('User page'));
@@ -166,7 +164,7 @@ function updateAction() {
 	}
 
 	//	User update
-	$res = updateUserData ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5);
+	$res = update_user ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5);
 	if ($res) {
 		$resData['success']     = 1;
 		$resData['message']     = 'Data update';
