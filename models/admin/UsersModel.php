@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: grantorino
- * Date: 28.06.2018
- * Time: 13:50
+ * Model for user table
  */
 
 /**
@@ -23,6 +20,23 @@ function login_user ($email, $pwd) {
 			FROM `users`
 			WHERE (`email` = '{$email}' AND `pwd` = '{$pwd}' AND `role` = 1)
 			LIMIT 1";
+
+	$rs = mysqli_query($db, $sql);
+	$rs = createSmartyRsArray($rs);
+
+	return $rs;
+}
+
+/**
+ * Get All Users
+ *
+ * @return array|bool|mysqli_result
+ */
+function get_users() {
+	global $db;
+
+	$sql = "SELECT *
+			FROM `users`";
 
 	$rs = mysqli_query($db, $sql);
 	$rs = createSmartyRsArray($rs);

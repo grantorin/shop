@@ -44,10 +44,7 @@ function homeAction ($smarty) {
 
 	$helpers = array(
 		'activeMenu' => array(
-			'index' => 1,
-			'categories' => 0,
-			'products' => 0,
-			'orders' => 0
+			'index' => 1
 		)
 	);
 
@@ -84,6 +81,40 @@ function loginAction () {
 
 	// TODO replace to login.tpl
 	echo "Login or password invalid, <a href='/admin/'>LogIn</a>";
+}
+
+
+/**
+ * Load Users Page Admin
+ *
+ * @param object $smarty
+ */
+function usersAction ($smarty) {
+
+	$rsCategories = get_cats_primary();
+	$rsUsers = get_users();
+
+	$helpers = array(
+		'activeMenu' => array(
+			'users'  => 0
+		),
+		'message' 		=> array(
+		'empty-content'	=> __('No Users'),
+		),
+		'status' => array(
+			0	 => __('<span class="text-success">customer</span>'),
+			1	 => __('<span class="text-danger">admin</span>')
+		)
+	);
+
+	$smarty->assign('helpers', $helpers);
+	$smarty->assign('titlePage', __('Users'));
+	$smarty->assign('rsCategories', $rsCategories);
+	$smarty->assign('rsUsers', $rsUsers);
+
+	loadTemplate($smarty, 'header-admin');
+	loadTemplate($smarty, 'user-admin');
+	loadTemplate($smarty, 'footer-admin');
 }
 
 /**

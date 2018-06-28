@@ -26,9 +26,9 @@ function registerAction() {
 	$name    = isset($_REQUEST['name'])    ? trim($_REQUEST['name']) : null;
 
 	$resData = null;
-	$resData = checkRegisterParams($email, $pwd1, $pwd2);
+	$resData = check_register_params($email, $pwd1, $pwd2);
 
-	if (!$resData && checkUserEmail($email)) {
+	if (!$resData && check_email($email)) {
 		$resData['success'] = false;
 		$resData['message'] = __('A user with this email(') . $email . __(') has already been registered');
 	}
@@ -36,7 +36,7 @@ function registerAction() {
 	if (!$resData) {
 		$pwdMD5 = md5($pwd1);
 
-		$userData = registerNewUser($email, $pwdMD5, $name, $phone, $address);
+		$userData = set_user($email, $pwdMD5, $name, $phone, $address);
 
 		if ($userData['success']) {
 			$resData['success'] = 1;
@@ -115,7 +115,7 @@ function indexAction($smarty) {
 
 	$rsCategories = get_cats();
 
-	$rsUserOrders = getCurUserOrders();
+	$rsUserOrders = get_orders_for_user();
 
 	$helpers = array(
 		'isShippingRequired' => 0,

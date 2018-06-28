@@ -50,6 +50,16 @@
             <i class="material-icons mr-2">shopping_cart</i>
             Orders
         </a>
+        <a href="/admin/users/"
+           class="d-flex align-items-center list-group-item list-group-item-action rounded-0 text-light
+            {if $helpers['activeMenu']['users']}
+                active
+            {else}
+                bg-dark
+            {/if}">
+            <i class="material-icons mr-2">group</i>
+            Users
+        </a>
         <a href="/admin/options/"
            class="d-flex align-items-center list-group-item list-group-item-action rounded-0 text-light
             {if $helpers['activeMenu']['options']}

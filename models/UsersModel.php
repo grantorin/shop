@@ -14,7 +14,7 @@
  * @param string $address
  * @return array|bool|mysqli_result
  */
-function registerNewUser($email, $pwdMD5, $name, $phone, $address) {
+function set_user($email, $pwdMD5, $name, $phone, $address) {
 	global $db;
 	$email   = htmlspecialchars(mysqli_real_escape_string ($db, $email));
 	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
@@ -50,7 +50,7 @@ function registerNewUser($email, $pwdMD5, $name, $phone, $address) {
  * @param string $pwd2
  * @return array|null
  */
-function checkRegisterParams($email, $pwd1, $pwd2) {
+function check_register_params($email, $pwd1, $pwd2) {
 
 	$res = null;
 
@@ -82,7 +82,7 @@ function checkRegisterParams($email, $pwd1, $pwd2) {
  * @param string $email
  * @return array
  */
-function checkUserEmail($email) {
+function check_email($email) {
 
 	global $db;
 	$email = mysqli_real_escape_string($db, $email);
@@ -166,7 +166,7 @@ function update_user ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
  *
  * @return array
  */
-function getCurUserOrders () {
+function get_orders_for_user () {
 
 	$userID = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
 	$rs = get_orders_user($userID);

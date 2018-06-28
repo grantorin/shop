@@ -65,6 +65,7 @@ function createSmartyRsArray($rs) {
  *
  * @param string $str
  * @return string
+ * TODO implement translation function
  */
 function __($str) {
 	return $str;

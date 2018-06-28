@@ -1,6 +1,6 @@
 AddDefaultCharset utf-8
 
-Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
 Options -Indexes
 DirectoryIndex index.php
 
