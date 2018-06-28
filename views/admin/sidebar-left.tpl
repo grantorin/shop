@@ -1,6 +1,6 @@
 <aside class="sidebar">
     <div class="list-group">
-        <a href="/admin/"
+        <a href="/admin/home/"
            class="d-flex align-items-center list-group-item list-group-item-action rounded-0 text-light
             {if $helpers['activeMenu']['index']}
                 active

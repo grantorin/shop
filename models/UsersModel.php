@@ -102,7 +102,7 @@ function checkUserEmail($email) {
  * @param string $pwd
  * @return array|bool
  */
-function loginUser ($email, $pwd) {
+function login_user ($email, $pwd) {
 	global $db;
 	$email = htmlspecialchars(mysqli_real_escape_string ($db, $email));
 	$pwd   = md5($pwd);

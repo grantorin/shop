@@ -63,6 +63,7 @@ function registerAction() {
  * Logout User from system
  */
 function logoutAction() {
+
 	if (isset($_SESSION['user'])) {
 		unset($_SESSION['user']);
 		unset($_SESSION['cart']);
@@ -81,7 +82,7 @@ function loginAction() {
 	$email = isset($_REQUEST['email']) ? trim($_REQUEST['email']) : null;
 	$pwd   = isset($_REQUEST['pwd'])   ? trim($_REQUEST['pwd']) : null;
 
-	$userData = loginUser($email, $pwd);
+	$userData = login_user($email, $pwd);
 
 	if ($userData['success']) {
 		$userData = $userData[0];

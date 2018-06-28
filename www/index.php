@@ -12,12 +12,12 @@ include_once '../config/config.php';         // Initializing settings
 include_once '../config/db.php';             // Initializing settings db
 include_once '../library/mainFunctions.php'; // Common Functions
 
-// определяем с каким контроллером работаем
+// set controller name
 $controllerName = isset($_GET['controller'])
     ? ucfirst($_GET['controller']) // first letter to Uppercase, other to lowercase
     : 'Index';
 
-// определяем с каким екшеном работаем
+// set action name
 $actionName = isset($_GET['action'])
     ? $_GET['action']
     : 'index';
@@ -25,6 +25,7 @@ $actionName = isset($_GET['action'])
 if (isset($_SESSION['user'])) {
 	$smarty->assign('arUser', $_SESSION['user']);
 }
+
 $smarty->assign('cartCntItems', count($_SESSION['cart']));
 
 loadPage($smarty, $controllerName, $actionName);

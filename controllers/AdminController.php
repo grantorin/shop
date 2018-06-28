@@ -3,8 +3,16 @@
  * Admin controller {/admin/}
  */
 
+//d($_SESSION,0);
+// if not auth admin
+
+if ($_SESSION['user']['role'] != 1 && ($actionName !== 'index' && $actionName !== 'login')) {
+	exit('Please login');
+}
+
 
 include_once '../models/admin/CategoriesModel.php';
+include_once '../models/admin/UsersModel.php';
 include_once '../models/admin/ProductsModel.php';
 include_once '../models/admin/OrdersModel.php';
 
@@ -14,12 +22,23 @@ $smarty->setTemplateDir(TemplateAdminPrefix);
 $smarty->assign('templateWebPath', TemplateAdminWebPath);
 
 
+
 /**
- * Load Index Page Admin
+ * Load Index Page Auth Admin
  *
  * @param object $smarty
  */
 function indexAction ($smarty) {
+
+	loadTemplate($smarty, 'auth-admin');
+}
+
+/**
+ * Load Home Page Admin
+ *
+ * @param object $smarty
+ */
+function homeAction ($smarty) {
 
 	$rsCategories = get_cats_primary();
 
@@ -41,6 +60,31 @@ function indexAction ($smarty) {
 	loadTemplate($smarty, 'footer-admin');
 }
 
+/**
+ * Login User
+ */
+function loginAction () {
+
+	$email = $_POST['email'];
+	$pwd   = $_POST['pwd'];
+
+	if (!($email && $pwd)) {
+		echo "Error auth, not required parameters";
+		return;
+	}
+
+	$rs =  login_user ($email, $pwd);
+
+	if ($rs) {
+
+		$_SESSION['user'] = $rs[0];
+
+		redirect('/admin/home/');
+	}
+
+	// TODO replace to login.tpl
+	echo "Login or password invalid, <a href='/admin/'>LogIn</a>";
+}
 
 /**
  * Insert category from AJAX
@@ -311,8 +355,8 @@ function ordersAction ($smarty) {
 			'details-order'	=> __('Details')
 		),
 		'status' => array(
-			0	 => __('No Payment'),
-			1	 => __('Payment')
+			0	 => __('<span class="text-danger">No Payment</span>'),
+			1	 => __('<span class="text-success">Payment</span>')
 		)
 	);
 
