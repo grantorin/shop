@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for products table
+ * Model for [products] table
  */
 
 

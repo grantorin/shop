@@ -19,7 +19,7 @@
 
     {/if}
 
-    <!-- User login -->
+    <!-- User login --> {*TODO fix admin login name in frontend*}
     <div id="userBox" class="border p-3 my-3" {if !$arUser}style="display: none;"{/if}>
         <h6>Привет <a id="userNameLink" href="/user/"><span id="userName" class="badge badge-primary">{$arUser['displayName']}</span></a></h6>
         <a href="/user/logout/" class="btn btn-primary mb-2">Logout</a>
