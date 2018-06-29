@@ -292,9 +292,7 @@ function uploadAction() {
 
 	$itemID = $_POST['itemID'];
 
-	$ext = pathinfo($_FILES['fileimg']['name'], PATHINFO_EXTENSION);
-
-	$newFileName = $itemID . '.' . $ext;
+	$newFileName = $_FILES['fileimg']['size'] . '_' . $_FILES['fileimg']['name'];
 
 	if ($_FILES['fileimg']['size'] > FILEMAXSIZE) {
 		echo "Uploaded file size exceeded";
