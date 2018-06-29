@@ -3,8 +3,6 @@
  * Admin controller {/admin/}
  */
 
-//d($_SESSION,0);
-// if not auth admin
 
 if ($_SESSION['user']['role'] != 1 && ($actionName !== 'index' && $actionName !== 'login')) {
 	exit('Please login');
@@ -294,9 +292,7 @@ function uploadAction() {
 
 	$itemID = $_POST['itemID'];
 
-	$ext = pathinfo($_FILES['fileimg']['name'], PATHINFO_EXTENSION);
-
-	$newFileName = $itemID . '.' . $ext;
+	$newFileName = $_FILES['fileimg']['size'] . '_' . $_FILES['fileimg']['name'];
 
 	if ($_FILES['fileimg']['size'] > FILEMAXSIZE) {
 		echo "Uploaded file size exceeded";

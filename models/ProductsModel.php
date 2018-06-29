@@ -8,21 +8,28 @@
  * Get last Products from table {products}
  *
  * @param null|int $limit
+ * @param int $offset
  * @return array
  */
-function get_products_last($limit = null) {
+function get_products_last($limit = null, $offset = 1) {
 	global $db;
+
+	$sqlCnt = "SELECT count(id) AS cnt
+            FROM `products`";
+
+	$rs = mysqli_query($db, $sqlCnt);
+	$cnt = createSmartyRsArray($rs);
+
 	$sql = "SELECT *
             FROM `products`
-            ORDER BY `id` DESC";
+            ORDER BY `id` DESC
+            LIMIT {$offset}, {$limit}";
 
-	if($limit) {
-		$sql .= " LIMIT {$limit}";
-	}
+	$rs = mysqli_query($db, $sql);
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rows = createSmartyRsArray($rs);
 
-	return createSmartyRsArray($rs);
+	return array($rows, $cnt[0]['cnt']);
 }
 
 

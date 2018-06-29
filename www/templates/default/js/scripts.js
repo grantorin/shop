@@ -176,6 +176,7 @@ jQuery(function ($) {
     /**
      * Order Checkout
      */
+    // TODO fix order checkout else empty shipping inputs
     $('#btnOrderCheckout').on('click', function () {
         var postData = getData('#frmOrder');
         console.log(postData); // TODO remove to deployment
@@ -200,12 +201,5 @@ jQuery(function ($) {
             }
         })
     });
-
-    /**
-     * Get current order in User page
-     */
-    $('#btnGetCurrentOrder').on('click', function() {
-
-    })
 
 });

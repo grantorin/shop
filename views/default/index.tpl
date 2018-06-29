@@ -19,4 +19,24 @@
 
          </div>
 
+         <nav aria-label="Page navigation">
+             <ul class="pagination">
+                 {if $paginator['cur_page'] != 1}
+                     <li class="page-item"><a class="page-link" href="{$paginator['link']}{$paginator['cur_page'] - 1}">&laquo;</a></li>
+                 {/if}
+
+                 {for $i=1 to $paginator['page_count'] }
+                     {if $i == $paginator['cur_page']}
+                         <li class="page-item active"><span class="page-link">{$paginator['cur_page']}<span class="sr-only">(current)</span></span></li>
+                     {else}
+                         <li class="page-item"><a class="page-link" href="{$paginator['link']}{$i}">{$i}</a></li>
+                     {/if}
+                 {/for}
+
+                 {if $paginator['cur_page'] < $paginator['page_count']}
+                     <li class="page-item"><a class="page-link" href="{$paginator['link']}{$paginator['cur_page'] + 1}">&raquo;</a></li>
+                 {/if}
+             </ul>
+         </nav>
+
      {/if}
