@@ -201,11 +201,4 @@ jQuery(function ($) {
         })
     });
 
-    /**
-     * Get current order in User page
-     */
-    $('#btnGetCurrentOrder').on('click', function() {
-
-    })
-
 });

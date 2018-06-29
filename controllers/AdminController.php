@@ -3,8 +3,6 @@
  * Admin controller {/admin/}
  */
 
-//d($_SESSION,0);
-// if not auth admin
 
 if ($_SESSION['user']['role'] != 1 && ($actionName !== 'index' && $actionName !== 'login')) {
 	exit('Please login');
