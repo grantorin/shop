@@ -18,7 +18,7 @@ function get_posts($postID) {
 			FROM `posts`
 			WHERE `id` = '{$postID}'";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
-	return mysqli_fetch_assoc($rs);
+	return $rs->fetch(PDO::FETCH_ASSOC);
 }

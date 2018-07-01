@@ -5,6 +5,10 @@
                 <td><label for="newProdName">Name</label></td>
                 <td><input type="text" name="newProdName" id="newProdName" class="form-control"></td>
             </tr>
+             <tr>
+                <td><label for="newProdSlug">Slug</label></td>
+                <td><input type="text" name="newProdSlug" id="newProdSlug" class="form-control"></td>
+            </tr>
             <tr>
                 <td><label for="newProdPrice">Price</label></td>
                 <td><input type="number" name="newProdPrice" id="newProdPrice" class="form-control" min="0"></td>
@@ -60,6 +64,7 @@
             <td width="5%" rowspan="2">{$item['id']}</td>
             <td rowspan="2">
                 <input type="text" name="name" class="form-control mb-2" value="{$item['name']}">
+                <input type="text" name="slug" class="form-control mb-2" value="{$item['slug']}">
                 <input type="number" name="price" class="form-control mb-2" value="{$item['price']}">
 
                 <select name="catParent" class="custom-select">

@@ -16,23 +16,23 @@
  */
 function set_user($email, $pwdMD5, $name, $phone, $address) {
 	global $db;
-	$email   = htmlspecialchars(mysqli_real_escape_string ($db, $email));
-	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
-	$phone   = htmlspecialchars(mysqli_real_escape_string ($db, $phone));
-	$address = htmlspecialchars(mysqli_real_escape_string ($db, $address));
+	$email   = htmlspecialchars($email);
+	$name    = htmlspecialchars($name);
+	$phone   = htmlspecialchars($phone);
+	$address = htmlspecialchars($address);
 
 	$sql = "INSERT INTO
 			`users` (`email`, `pwd`, `name`, `phone`, `address`)
 			VALUES ('{$email}', '{$pwdMD5}', '{$name}', '{$phone}', '{$address}')";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	if ($rs) {
 		$sql = "SELECT * FROM users
 				WHERE (`email` = '{$email}' AND `pwd` = '{$pwdMD5}')
 				LIMIT 1";
 
-		$rs = mysqli_query($db, $sql);
+		$rs = $db->query($sql);
 		$rs = createSmartyRsArray($rs);
 		$rs['success'] = (isset($rs[0])) ? 1 : 0;
 
@@ -55,22 +55,22 @@ function check_register_params($email, $pwd1, $pwd2) {
 	$res = null;
 
 	if (!$email) {
-		$res['success'] = false;
+		$res['success'] = 0;
 		$res['message'] = __('Input email');
 	}
 
 	if (!$pwd1) {
-		$res['success'] = false;
+		$res['success'] = 0;
 		$res['message'] = __('Input password');
 	}
 
 	if (!$pwd2) {
-		$res['success'] = false;
+		$res['success'] = 0;
 		$res['message'] = __('Input password repeat');
 	}
 
 	if ($pwd1 != $pwd2) {
-		$res['success'] = false;
+		$res['success'] = 0;
 		$res['message'] = __('Passwords do not match');
 	}
 
@@ -85,10 +85,10 @@ function check_register_params($email, $pwd1, $pwd2) {
 function check_email($email) {
 
 	global $db;
-	$email = mysqli_real_escape_string($db, $email);
+
 	$sql = "SELECT `id` FROM `users` WHERE `email` = '{$email}'";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 	$rs = createSmartyRsArray($rs);
 
 	return $rs;
@@ -104,7 +104,7 @@ function check_email($email) {
  */
 function login_user ($email, $pwd) {
 	global $db;
-	$email = htmlspecialchars(mysqli_real_escape_string ($db, $email));
+	$email = htmlspecialchars($email);
 	$pwd   = md5($pwd);
 
 	$sql = "SELECT *
@@ -112,8 +112,10 @@ function login_user ($email, $pwd) {
 			WHERE (`email` = '{$email}' AND `pwd` = '{$pwd}')
 			LIMIT 1";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql);
+
 	$rs = createSmartyRsArray($rs);
+
 	$rs['success'] = (isset($rs[0])) ? 1 : 0;
 
 	return $rs;
@@ -133,10 +135,10 @@ function login_user ($email, $pwd) {
  */
 function update_user ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
 	global $db;
-	$email   = htmlspecialchars(mysqli_real_escape_string ($db, $_SESSION['user']['email']));
-	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
-	$phone   = htmlspecialchars(mysqli_real_escape_string ($db, $phone));
-	$address = htmlspecialchars(mysqli_real_escape_string ($db, $address));
+	$email   = htmlspecialchars($_SESSION['user']['email']);
+	$name    = htmlspecialchars($name);
+	$phone   = htmlspecialchars($phone);
+	$address = htmlspecialchars($address);
 	$pwd1    = trim($pwd1);
 	$pwd2    = trim($pwd2);
 
@@ -155,8 +157,8 @@ function update_user ($name, $phone, $address, $pwd1, $pwd2, $curPwdMD5) {
 			  `email` = '{$email}' AND `pwd` = '{$curPwdMD5}'
 			LIMIT 1";
 
-	$rs = mysqli_query($db, $sql); // use query
-//	var_dump($rs); exit;
+	$rs = $db->query($sql); // use query
+
 	return $rs;
 }
 

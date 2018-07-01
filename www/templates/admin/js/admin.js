@@ -10,7 +10,6 @@ jQuery(function ($) {
             ? name = str.lastIndexOf('\\') + 1
             : name = str.lastIndexOf('/') + 1;
 
-        // $(this).next('[name=image]').val(str.slice(name));
         $('[for=' + $(this).attr('id') + ']').text(str.slice(name));
     });
 
@@ -48,7 +47,14 @@ jQuery(function ($) {
                 if (data['success']) {
                     alert(data['message']); // TODO replace to modal deployment
 
-                    $('#cat').val('');
+                    $('#cat, #slug').val('');
+                    $('#tableCats tbody').append(
+                            '<tr><th scope="row">' +
+                            ($('#tableCats > tbody > tr').length + 1) +
+                            '</th><td>' + data["catname"] +
+                            '</td><td>' + data["catID"] +
+                            '</td></tr>');
+
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }
@@ -83,6 +89,7 @@ jQuery(function ($) {
                     alert(data['message']); // TODO replace to modal deployment
                         $('#newProdImage, ' +
                         '[name=newProdName],' +
+                        '[name=newProdSlug],' +
                         '[name=newProdPrice],' +
                         '[name=newProdCatList],' +
                         '[name=newProdDescription]').val('');
@@ -153,7 +160,7 @@ jQuery(function ($) {
                 if (data['success']) {
                     alert(data['message']); // TODO replace to modal deployment
 
-                    location.reload();
+                    location.reload(); // TODO replace
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }

@@ -15,7 +15,7 @@ function get_products () {
             FROM `products`
             ORDER BY `category_id`";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -31,18 +31,19 @@ function get_products () {
  * @param string $newProdImage
  * @return bool|mysqli_result
  */
-function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, $newProdDescription = '', $newProdImage = '') {
+function set_product($newProdName = '', $newProdSlug = '', $newProdPrice = 0, $newProdCatList = 0, $newProdDescription = '', $newProdImage = '') {
 	global $db;
 
 	$sql = "INSERT INTO `products`
             SET 
             	`category_id` = '{$newProdCatList}',
             	`name` = '{$newProdName}',
+            	`slug` = '{$newProdSlug}',
             	`description` = '{$newProdDescription}',
             	`price` = '{$newProdPrice}',
             	`image` = '{$newProdImage}'";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return $rs;
 }
@@ -53,6 +54,7 @@ function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, 
  *
  * @param int $ID
  * @param string $name
+ * @param string $slug
  * @param int $price
  * @param null $status
  * @param string $description
@@ -61,7 +63,7 @@ function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, 
  * @param bool $del
  * @return bool|mysqli_result
  */
-function update_product($ID, $name = '', $price = 0, $status = null,
+function update_product($ID, $name = '', $slug = '', $price = 0, $status = null,
 						$description = '', $cat = 0, $image = null, $del = false ) {
 	global $db;
 
@@ -69,7 +71,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 		$sql = "DELETE FROM `products`
 			WHERE `id` = '{$ID}'";
 
-		$rs = mysqli_query($db, $sql);
+		$rs = $db->query($sql);
 		return $rs;
 	}
 
@@ -81,6 +83,10 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 
 	if ($name) {
 		$set[] = "`name` = '{$name}'";
+	}
+
+	if ($slug) {
+		$set[] = "`slug` = '{$slug}'";
 	}
 
 	if ($description) {
@@ -95,7 +101,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 		$set[] = "`image` = '{$image}'";
 	}
 
-	if ($status) {
+	if ($status !== null) {
 		$set[] = "`status` = '{$status}'";
 	}
 
@@ -105,7 +111,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 			WHERE `id` = '{$ID}'";
 
 //	d($sql);
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return $rs;
 }

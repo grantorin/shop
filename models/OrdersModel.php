@@ -14,9 +14,9 @@
  */
 function set_order ($name, $phone, $address) {
 	global $db;
-	$name    = htmlspecialchars(mysqli_real_escape_string ($db, $name));
-	$phone   = htmlspecialchars(mysqli_real_escape_string ($db, $phone));
-	$address = htmlspecialchars(mysqli_real_escape_string ($db, $address));
+	$name    = htmlspecialchars($name);
+	$phone   = htmlspecialchars($phone);
+	$address = htmlspecialchars($address);
 
 	$userID = $_SESSION['user']['id'];
 	$comment = "User ID:  {$userID}<br>
@@ -31,14 +31,14 @@ function set_order ($name, $phone, $address) {
 			`orders` (`user_id`, `date_created`, `date_payment`, `status`, `comment`, `user_ip`)
 			VALUE ('{$userID}', '{$dateCreated}', null, '0', '{$comment}', '{$userIP}')";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	if ($rs) {
 		$sql = "SELECT id
 				FROM `orders`
 				ORDER BY id DESC
 				LIMIT 1";
-		$rs = mysqli_query($db, $sql);
+		$rs = $db->query($sql);
 		$rs = createSmartyRsArray($rs);
 
 		// return query id
@@ -64,10 +64,10 @@ function get_orders_user($userID) {
 			WHERE `user_id` = '{$userID}'
 			ORDER BY `id` DESC";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	$smartyRs = array();
-	while ($row = mysqli_fetch_assoc($rs)) {
+	while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 		$rsChildren = get_purchese_for_order($row['id']);
 		if ($rsChildren) {
 			$row['children'] = $rsChildren;

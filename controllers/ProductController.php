@@ -3,8 +3,8 @@
  * Product single page Controller {/product/1}
  */
 
-include_once '../models/ProductsModel.php';
-include_once '../models/CategoriesModel.php';
+require_once '../models/ProductsModel.php';
+require_once '../models/CategoriesModel.php';
 
 /**
  * Load Product Page

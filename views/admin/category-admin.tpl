@@ -3,6 +3,7 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
+        <th scope="col">Slug</th>
         <th scope="col">ID</th>
         <th scope="col">Parent</th>
         <th scope="col">&nbsp;</th>
@@ -14,6 +15,9 @@
             <th scope="row">{$smarty.foreach.cat.iteration}</th>
             <td>
                 <input class="form-control" type="text" name="cat" value="{$item['name']}">
+            </td>
+            <td>
+                <input class="form-control" type="text" name="slug" value="{$item['slug']}">
             </td>
             <td>{$item['id']}</td>
             <td>

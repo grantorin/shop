@@ -14,7 +14,7 @@ function get_cats () {
             FROM `categories`
             ORDER BY `parent_id` ASC";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -31,7 +31,7 @@ function get_cats_primary() {
             FROM `categories`
             WHERE `parent_id` = 0" ;
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -44,16 +44,16 @@ function get_cats_primary() {
  * @param int $catParentID
  * @return int|string
  */
-function set_cat($catName, $catParentID = 0) {
+function set_cat($catName, $catSlug = '', $catParentID = 0) {
 	global $db;
 	$sql = "INSERT INTO
-            `categories` (`parent_id`, `name`)
-            VALUES ('{$catParentID}', '{$catName}')";
+            `categories` (`parent_id`, `name`, `slug`)
+            VALUES ('{$catParentID}', '{$catName}', '{$catSlug}')";
 
-	mysqli_query($db, $sql);
+	$db->query($sql);
 
 	// get insert id
-	$id = mysqli_insert_id($db);
+	$id = $db->lastInsertId();
 
 	return $id;
 }
@@ -65,15 +65,20 @@ function set_cat($catName, $catParentID = 0) {
  * @param int $catID
  * @param int $catParentID
  * @param string $catName
+ * @param string $catSlug
  * @return bool|mysqli_result
  */
-function update_cat($catID, $catParentID = -1, $catName = '') {
+function update_cat($catID, $catParentID = -1, $catName = '', $catSlug = '') {
 	global $db;
 
 	$set = array();
 
 	if ($catName) {
 		$set[] = "`name` = '{$catName}'";
+	}
+
+	if ($catSlug) {
+		$set[] = "`slug` = '{$catSlug}'";
 	}
 
 	if ($catParentID > -1) {
@@ -84,7 +89,7 @@ function update_cat($catID, $catParentID = -1, $catName = '') {
             SET {$setStr}
             WHERE id = '{$catID}'";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return $rs;
 }

@@ -15,7 +15,7 @@ function get_cats_child($catID) {
             FROM `categories`
             WHERE `parent_id` = {$catID}" ;
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -32,13 +32,13 @@ function get_cats() {
             FROM `categories`
             WHERE `parent_id` = 0";
 
-    $rs = mysqli_query($db, $sql); // use query
+    $rs = $db->query($sql); // use query
 	if ($rs) {
 
 		$smartyRs = array();
 
 		/* extraction of an associative array from query */
-		while ($row = mysqli_fetch_assoc($rs)) {
+		while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 
 			$rsChildren = get_cats_child($row['id']);
 			if($rsChildren) {
@@ -67,7 +67,7 @@ function get_cat_id($catID) {
 			FROM `categories`
 			WHERE `id` = '{$catID}'";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
-	return mysqli_fetch_assoc($rs);
+	return $rs->fetch(PDO::FETCH_ASSOC);
 }
