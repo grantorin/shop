@@ -3,7 +3,7 @@
  * Model for orders table
  */
 
-include_once 'PurchaseModel.php';
+require_once 'PurchaseModel.php';
 
 /**
  * Get orders with products by user
@@ -18,10 +18,10 @@ function get_orders () {
 			LEFT JOIN `users` AS `u` ON o.user_id = u.id
 			ORDER BY id DESC";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	$smartyRs = array();
-	while ($row = mysqli_fetch_assoc($rs)) {
+	while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 		$rsChildren = get_purchases_for_order($row['id']);
 		if ($rsChildren) {
 			$row['children'] = $rsChildren;
@@ -47,7 +47,7 @@ function update_order_status ($itemID, $date) {
 			SET `date_payment` = '{$date}', `status` = 1
 			WHERE id = '{$itemID}'";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return $rs;
 }

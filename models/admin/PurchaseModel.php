@@ -19,7 +19,7 @@ function get_purchases_for_order($orderID) {
 			JOIN `products` AS `ps` ON `pe`.`product_id` = `ps`.`id`
 			WHERE `pe`.`order_id` = {$orderID} ";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return createSmartyRsArray($rs);
 }

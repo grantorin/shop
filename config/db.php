@@ -3,24 +3,20 @@
  * DB configs
  */
 
-$dblocation = "127.0.0.1";
+$dbhost = "127.0.0.1";
 $dbname = "shop";
 $dbuser = "root";
 $dbpass = "";
 
-// Link to DB connect or false
 global $db;
-$db = mysqli_connect($dblocation, $dbuser, $dbpass);
 
-if(!$db) {
-    echo "MySQL connection Error";
-    exit();
+$db = null;
+
+try {
+	// Link to DB connect or false
+	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
 }
-
-// DB connect
-mysqli_set_charset($db,'utf8');
-
-if(!mysqli_select_db($db, $dbname)) {
-    echo "DB: $dbname connection Error";
-    exit();
+catch(PDOException $e)
+{
+	echo 'Connection failed: ' . $e->getMessage();
 }

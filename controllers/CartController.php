@@ -3,10 +3,10 @@
  * Cart controller {/cart/}
  */
 
-include_once '../models/CategoriesModel.php';
-include_once '../models/ProductsModel.php';
-include_once '../models/OrdersModel.php';
-include_once '../models/PurchaseModel.php';
+require_once '../models/CategoriesModel.php';
+require_once '../models/ProductsModel.php';
+require_once '../models/OrdersModel.php';
+require_once '../models/PurchaseModel.php';
 
 
 /**

@@ -3,8 +3,8 @@
  * Category page Controller {/category/1}
  */
 
-include_once '../models/CategoriesModel.php';
-include_once '../models/ProductsModel.php';
+require_once '../models/CategoriesModel.php';
+require_once '../models/ProductsModel.php';
 
 /**
  * Load Category Page

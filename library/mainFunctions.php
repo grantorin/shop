@@ -8,7 +8,7 @@
  *
  */
 function loadPage ($smarty, $controllerName, $actionName = 'index') {
-    include_once PathPrefix . $controllerName . PathPostfix;
+    require_once PathPrefix . $controllerName . PathPostfix;
 
     $function = $actionName . 'Action';
     $function($smarty);
@@ -51,8 +51,7 @@ function createSmartyRsArray($rs) {
 
 	$smartyRs = array();
 
-	/* extraction of an associative array from query */
-	while ($row = mysqli_fetch_assoc($rs)) {
+	while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 		$smartyRs[] = $row;
 	}
 

@@ -24,7 +24,7 @@ function setPurcheseForOrder ($orderID, $cart) {
 	}
 
 	$sql .= implode($values, ', ');
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return $rs;
 }
@@ -44,7 +44,7 @@ function get_purchese_for_order($orderID) {
 			JOIN `products` AS `ps` ON `pe`.`product_id` = `ps`.`id`
 			WHERE `pe`.`order_id` = {$orderID} ";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return createSmartyRsArray($rs);
 }

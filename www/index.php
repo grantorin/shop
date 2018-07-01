@@ -8,9 +8,9 @@ if (!isset($_SESSION['cart'])) {
 	$_SESSION['cart'] = array();
 }
 
-include_once '../config/config.php';         // Initializing settings
-include_once '../config/db.php';             // Initializing settings db
-include_once '../library/mainFunctions.php'; // Common Functions
+require_once '../config/config.php';         // Initializing settings
+require_once '../config/db.php';             // Initializing settings db
+require_once '../library/mainFunctions.php'; // Common Functions
 
 // set controller name
 $controllerName = isset($_GET['controller'])

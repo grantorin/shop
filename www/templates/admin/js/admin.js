@@ -49,6 +49,13 @@ jQuery(function ($) {
                     alert(data['message']); // TODO replace to modal deployment
 
                     $('#cat').val('');
+                    $('#tableCats tbody')
+                        .append('<tr><th scope="row">' +
+                            ($('#tableCats > tbody > tr').length + 1) +
+                            '</th><td>' + data["catname"] +
+                            '</td><td>' + data["catID"] +
+                            '</td></tr>');
+
                 } else {
                     alert(data['message']); // TODO replace to modal deployment
                 }

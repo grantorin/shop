@@ -3,8 +3,8 @@
  * Index page Controller
  */
 
-include_once '../models/CategoriesModel.php';
-include_once '../models/ProductsModel.php';
+require_once '../models/CategoriesModel.php';
+require_once '../models/ProductsModel.php';
 
 /**
  * Load Index Page

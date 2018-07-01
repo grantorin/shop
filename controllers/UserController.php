@@ -3,10 +3,10 @@
  * User controller
  */
 
-include_once '../models/CategoriesModel.php';
-include_once '../models/UsersModel.php';
-include_once '../models/OrdersModel.php';
-include_once '../models/PurchaseModel.php';
+require_once '../models/CategoriesModel.php';
+require_once '../models/UsersModel.php';
+require_once '../models/OrdersModel.php';
+require_once '../models/PurchaseModel.php';
 
 
 
@@ -27,9 +27,9 @@ function registerAction() {
 
 	$resData = null;
 	$resData = check_register_params($email, $pwd1, $pwd2);
-
+//	d($resData);
 	if (!$resData && check_email($email)) {
-		$resData['success'] = false;
+		$resData['success'] = 0;
 		$resData['message'] = __('A user with this email(') . $email . __(') has already been registered');
 	}
 
@@ -48,7 +48,9 @@ function registerAction() {
 
 			$_SESSION['user'] = $userData;
 			$_SESSION['user']['displayName'] = $userData['name'] ? $userData['name'] : $userData['email'];
+
 		} else {
+
 			$resData['success'] = 0;
 			$resData['message'] = __('Registration error');
 		}

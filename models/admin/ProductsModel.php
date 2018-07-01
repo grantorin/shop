@@ -15,7 +15,7 @@ function get_products () {
             FROM `products`
             ORDER BY `category_id`";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -42,7 +42,7 @@ function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, 
             	`price` = '{$newProdPrice}',
             	`image` = '{$newProdImage}'";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return $rs;
 }
@@ -69,7 +69,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 		$sql = "DELETE FROM `products`
 			WHERE `id` = '{$ID}'";
 
-		$rs = mysqli_query($db, $sql);
+		$rs = $db->query($sql);
 		return $rs;
 	}
 
@@ -95,7 +95,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 		$set[] = "`image` = '{$image}'";
 	}
 
-	if ($status) {
+	if ($status !== null) {
 		$set[] = "`status` = '{$status}'";
 	}
 
@@ -105,7 +105,7 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 			WHERE `id` = '{$ID}'";
 
 //	d($sql);
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return $rs;
 }

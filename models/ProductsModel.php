@@ -17,7 +17,7 @@ function get_products_last($limit = null, $offset = 1) {
 	$sqlCnt = "SELECT count(id) AS cnt
             FROM `products`";
 
-	$rs = mysqli_query($db, $sqlCnt);
+	$rs = $db->query($sqlCnt);
 	$cnt = createSmartyRsArray($rs);
 
 	$sql = "SELECT *
@@ -25,7 +25,7 @@ function get_products_last($limit = null, $offset = 1) {
             ORDER BY `id` DESC
             LIMIT {$offset}, {$limit}";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	$rows = createSmartyRsArray($rs);
 
@@ -47,7 +47,7 @@ function get_products_by_cat($catID) {
 			FROM `products`
 			WHERE `category_id` = '{$catID}'";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -67,9 +67,9 @@ function get_product_by_id($itemId) {
 			FROM `products`
 			WHERE `id` = '{$itemId}'";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
-	return mysqli_fetch_assoc($rs);
+	return $rs->fetch(PDO::FETCH_ASSOC);
 }
 
 
@@ -87,7 +87,7 @@ function get_products_from_array($itemsIDs) {
 			FROM `products`
 			WHERE `id` IN ({$itemsIDs})";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }

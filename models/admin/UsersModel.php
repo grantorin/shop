@@ -13,7 +13,7 @@
 function login_user ($email, $pwd) {
 	global $db;
 
-	$email = htmlspecialchars(mysqli_real_escape_string ($db, $email));
+	$email = htmlspecialchars($email);
 	$pwd   = md5($pwd);
 
 	$sql = "SELECT *
@@ -21,7 +21,7 @@ function login_user ($email, $pwd) {
 			WHERE (`email` = '{$email}' AND `pwd` = '{$pwd}' AND `role` = 1)
 			LIMIT 1";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 	$rs = createSmartyRsArray($rs);
 
 	return $rs;
@@ -38,7 +38,7 @@ function get_users() {
 	$sql = "SELECT *
 			FROM `users`";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 	$rs = createSmartyRsArray($rs);
 
 	return $rs;

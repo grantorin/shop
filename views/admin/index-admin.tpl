@@ -20,7 +20,7 @@
     </div>
     <div class="col-lg-6">
 
-        <table class="table">
+        <table id="tableCats" class="table">
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>

@@ -14,7 +14,7 @@ function get_cats () {
             FROM `categories`
             ORDER BY `parent_id` ASC";
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -31,7 +31,7 @@ function get_cats_primary() {
             FROM `categories`
             WHERE `parent_id` = 0" ;
 
-	$rs = mysqli_query($db, $sql); // use query
+	$rs = $db->query($sql); // use query
 
 	return createSmartyRsArray($rs);
 }
@@ -50,10 +50,10 @@ function set_cat($catName, $catParentID = 0) {
             `categories` (`parent_id`, `name`)
             VALUES ('{$catParentID}', '{$catName}')";
 
-	mysqli_query($db, $sql);
+	$db->query($sql);
 
 	// get insert id
-	$id = mysqli_insert_id($db);
+	$id = $db->lastInsertId();
 
 	return $id;
 }
@@ -84,7 +84,7 @@ function update_cat($catID, $catParentID = -1, $catName = '') {
             SET {$setStr}
             WHERE id = '{$catID}'";
 
-	$rs = mysqli_query($db, $sql);
+	$rs = $db->query($sql);
 
 	return $rs;
 }

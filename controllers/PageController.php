@@ -3,8 +3,8 @@
  * Pages Controller {/page/1}
  */
 
-include_once '../models/CategoriesModel.php';
-include_once '../models/PostsModel.php';
+require_once '../models/CategoriesModel.php';
+require_once '../models/PostsModel.php';
 
 /**
  * Load Pages

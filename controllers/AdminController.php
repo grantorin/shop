@@ -9,10 +9,10 @@ if ($_SESSION['user']['role'] != 1 && ($actionName !== 'index' && $actionName !=
 }
 
 
-include_once '../models/admin/CategoriesModel.php';
-include_once '../models/admin/UsersModel.php';
-include_once '../models/admin/ProductsModel.php';
-include_once '../models/admin/OrdersModel.php';
+require_once '../models/admin/CategoriesModel.php';
+require_once '../models/admin/UsersModel.php';
+require_once '../models/admin/ProductsModel.php';
+require_once '../models/admin/OrdersModel.php';
 
 
 // Set global path for admin
@@ -128,6 +128,8 @@ function addnewcatAction () {
 	if ($res) {
 		$resData['success'] = 1;
 		$resData['message'] = __('Category Add');
+		$resData['catname'] = $catName;
+		$resData['catID'] = $res;
 	} else {
 		$resData['success'] = 0;
 		$resData['message'] = __('Category Add Error');
