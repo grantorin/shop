@@ -15,6 +15,7 @@ $db = null;
 try {
 	// Link to DB connect or false
 	$db = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+	$db->exec("set names utf8");
 }
 catch(PDOException $e)
 {

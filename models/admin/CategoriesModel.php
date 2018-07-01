@@ -44,11 +44,11 @@ function get_cats_primary() {
  * @param int $catParentID
  * @return int|string
  */
-function set_cat($catName, $catParentID = 0) {
+function set_cat($catName, $catSlug = '', $catParentID = 0) {
 	global $db;
 	$sql = "INSERT INTO
-            `categories` (`parent_id`, `name`)
-            VALUES ('{$catParentID}', '{$catName}')";
+            `categories` (`parent_id`, `name`, `slug`)
+            VALUES ('{$catParentID}', '{$catName}', '{$catSlug}')";
 
 	$db->query($sql);
 

@@ -31,13 +31,14 @@ function get_products () {
  * @param string $newProdImage
  * @return bool|mysqli_result
  */
-function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, $newProdDescription = '', $newProdImage = '') {
+function set_product($newProdName = '', $newProdSlug = '', $newProdPrice = 0, $newProdCatList = 0, $newProdDescription = '', $newProdImage = '') {
 	global $db;
 
 	$sql = "INSERT INTO `products`
             SET 
             	`category_id` = '{$newProdCatList}',
             	`name` = '{$newProdName}',
+            	`slug` = '{$newProdSlug}',
             	`description` = '{$newProdDescription}',
             	`price` = '{$newProdPrice}',
             	`image` = '{$newProdImage}'";
@@ -61,7 +62,7 @@ function set_product($newProdName = '', $newProdPrice = 0, $newProdCatList = 0, 
  * @param bool $del
  * @return bool|mysqli_result
  */
-function update_product($ID, $name = '', $price = 0, $status = null,
+function update_product($ID, $name = '', $slug = '', $price = 0, $status = null,
 						$description = '', $cat = 0, $image = null, $del = false ) {
 	global $db;
 
@@ -81,6 +82,10 @@ function update_product($ID, $name = '', $price = 0, $status = null,
 
 	if ($name) {
 		$set[] = "`name` = '{$name}'";
+	}
+
+	if ($slug) {
+		$set[] = "`slug` = '{$slug}'";
 	}
 
 	if ($description) {

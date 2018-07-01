@@ -13,6 +13,7 @@ require_once '../models/admin/CategoriesModel.php';
 require_once '../models/admin/UsersModel.php';
 require_once '../models/admin/ProductsModel.php';
 require_once '../models/admin/OrdersModel.php';
+require_once '../library/mainFunctions.php';
 
 
 // Set global path for admin
@@ -123,7 +124,16 @@ function addnewcatAction () {
 	$catName     = $_POST['cat'];
 	$catParentID = $_POST['catParent'];
 
-	$res = set_cat($catName, $catParentID);
+	if (!$catName || $catParentID) {
+		$resData['success'] = 0;
+		$resData['message'] = __('Category Name Empty');
+		echo json_encode($resData);
+		return;
+	}
+
+	$catSlug = (isset($_POST['slug']) && $_POST['slug']) ? url_slug($_POST['slug']) : url_slug($catName);
+
+	$res = set_cat($catName,$catSlug, $catParentID);
 
 	if ($res) {
 		$resData['success'] = 1;
@@ -228,6 +238,15 @@ function addproductAction() {
 	$newProdDescription = $_POST['newProdDescription']  ? trim($_POST['newProdDescription']) : '';
 	$newProdImage 		= '';
 
+	if (!$newProdName) {
+		$resData['success'] = 0;
+		$resData['message'] = __('Product Name Empty');
+		echo json_encode($resData);
+		return;
+	}
+
+	$newProdSlug = $_POST['newProdSlug'] ? url_slug($_POST['newProdSlug']) : url_slug($newProdName);
+
 	if ($_FILES['fileimg']['size'] > FILEMAXSIZE) {
 		echo "Uploaded file size exceeded";
 		return;
@@ -244,7 +263,7 @@ function addproductAction() {
 		echo "Uploaded file Error";
 	}
 
-	$res = set_product($newProdName, $newProdPrice, $newProdCatList, $newProdDescription, $newProdImage);
+	$res = set_product($newProdName, $newProdSlug, $newProdPrice, $newProdCatList, $newProdDescription, $newProdImage);
 
 	if ($res) {
 		$resData['success'] = 1;
@@ -260,20 +279,23 @@ function addproductAction() {
 
 /**
  * Update Product from AJAX
+ *
+ * TODO check slug != slug
  */
 function updateproductAction() {
 
-	$ID 		 = isset($_POST['itemID']) 	 	? $_POST['itemID'] 	 	: null;
-	$name 		 = isset($_POST['name']) 		? $_POST['name'] 		: '';
-	$price 		 = isset($_POST['price']) 		? $_POST['price'] 		: 0;
-	$status 	 = isset($_POST['status']) 	 	? $_POST['status']		: 1;
-	$description = isset($_POST['description']) ? $_POST['description'] : '';
-	$cat 		 = isset($_POST['catParent']) 	? $_POST['catParent'] 	: 0;
+	$ID 		 = isset($_POST['itemID']) 	 				? $_POST['itemID'] 	 		: null;
+	$name 		 = isset($_POST['name']) 					? $_POST['name'] 			: '';
+	$slug 		 = isset($_POST['slug']) && $_POST['slug']  ? url_slug($_POST['slug'])  : url_slug($name);
+	$price 		 = isset($_POST['price']) 					? $_POST['price'] 			: 0;
+	$status 	 = isset($_POST['status']) 	 				? $_POST['status']			: 1;
+	$description = isset($_POST['description']) 			? $_POST['description'] 	: '';
+	$cat 		 = isset($_POST['catParent']) 				? $_POST['catParent'] 		: 0;
 	$del 		 = $_POST['del'];
 
 	if (!$ID) return;
 
-	$res = update_product($ID, $name, $price, $status, $description, $cat, null, $del);
+	$res = update_product($ID, $name, $slug, $price, $status, $description, $cat, null, $del);
 
 	if ($res) {
 		$resData['success'] = 1;
